@@ -1,3 +1,3 @@
-public class Bibliotec{
+public class Biblioteca {
     
 }
