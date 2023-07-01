@@ -24,19 +24,19 @@ public class Professor implements Usuario {
 	}
 
 	@Override
-	public void solicitarEmprestimo(String codigo, String codUsu, String codLivro) {
+	public void solicitarEmprestimo(String codUsu, String codLivro) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void devolverExemplar(String codigo, String codUsu, String codLivro) {
+	public void devolverExemplar(String codUsu, String codLivro) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void solicitarReserva(String codigo, String codUsu, String codLivro) {
+	public void solicitarReserva(String codUsu, String codLivro) {
 		// TODO Auto-generated method stub
 		
 	}

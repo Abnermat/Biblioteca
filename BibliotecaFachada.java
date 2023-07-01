@@ -32,30 +32,35 @@ public class BibliotecaFachada {
 		this.listaDeUsuarios.add(usuario);
 	}
 	
-	public void realizarEmprestimo(String codigo, Usuario usuario, Livro livro) {
-		RealizarEmprestimoCmd emprestimo = new RealizarEmprestimoCmd(usuario, livro);
-		emprestimo.executar(codigo, usuario.getId(), livro.getId());
+	public void solicitarService(Comando c) {
+		c.executar(null);
 	}
 	
-	public void realizarDevolucao(String codigo, Usuario usuario, Livro livro) {
-		RealizarDevolucaoCmd devolucao = new RealizarDevolucaoCmd(usuario, livro);
-		devolucao.executar(codigo, usuario.getId(), livro.getId());
+	
+	public void realizarEmprestimo(Usuario usuario, Livro livro) {
+		RealizarEmprestimoCmd emprestimo = new RealizarEmprestimoCmd();
+		//emprestimo.executar(codigo, usuario.getId(), livro.getId());
 	}
 	
-	public void realizarReserva(String codigo, Usuario usuario, Livro livro) {
-		RealizarReservaCmd reserva = new RealizarReservaCmd(usuario, livro);
-		reserva.executar(codigo, usuario.getId(), livro.getId());
+	public void realizarDevolucao(Usuario usuario, Livro livro) {
+		RealizarDevolucaoCmd devolucao = new RealizarDevolucaoCmd();
+		//devolucao.executar(codigo, usuario.getId(), livro.getId());
 	}
 	
-	public void serObservador(String codigo, Usuario usuario, Livro livro) {
+	public void realizarReserva(Usuario usuario, Livro livro) {
+		RealizarReservaCmd reserva = new RealizarReservaCmd();
+		//reserva.executar(codigo, usuario.getId(), livro.getId());
 	}
-	public void obterInformacoesExemplar(String codigo, Usuario usuario, Livro livro) {
+	
+	public void serObservador(Usuario usuario, Livro livro) {
 	}
-	public void meusEmprestimos(String codigo, Usuario usuario, Livro livro) {
+	public void obterInformacoesExemplar(Usuario usuario, Livro livro) {
 	}
-	public void notifObservador(String codigo, Usuario usuario, Livro livro) {
+	public void meusEmprestimos(Usuario usuario, Livro livro) {
 	}
-	public void sairDoSistema(String codigo, Usuario usuario, Livro livro) {
+	public void notifObservador(Usuario usuario, Livro livro) {
+	}
+	public void sairDoSistema(Usuario usuario, Livro livro) {
 	}
 	
 	

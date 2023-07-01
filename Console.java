@@ -15,26 +15,28 @@ public class Console {
 
     public void inicializar() { //adicionar comandos na inicialização
         
-    	//comandos.put("emp", new RealizarEmprestimoCmd()); 
-    	//comandos.put("dev", new RealizardevolucaoCmd()); 
-    	//comandos.put("res", new realizarReservaCmd); 
+    	comandos.put("emp", new RealizarEmprestimoCmd()); //preencher map
+    	comandos.put("dev", new RealizarDevolucaoCmd()); 
+    	comandos.put("res", new RealizarReservaCmd()); 
         
     }
     
-    public void executarComando(String codigo, String... args) { //teoricamente args pode ser tratado como uma matriz
-    	
-        Comando comando = this.comandos.get(codigo); //tenta pegar na Map o comando solicitado
+   public void executarComando(Object... args) { //teoricamente args pode ser tratado como uma matriz
+	   
+        Comando comando = comandos.get(args[0]); //tenta pegar na Map o comando solicitado
         
         if (comando != null) {
-            comando.executar(codigo, args);
+        	System.out.println("O comando existe!");
+        		//comando.executar(args);
         } else {
-            System.out.println("Comando " + codigo + " não encontrado!");
+            System.out.println("Comando " + args[0] + " não encontrado!");
         }
     }
     
     public static void main(String[] args) {
     	
-    	BibliotecaFachada fachada = BibliotecaFachada.getInstance();
+    	Console console = new Console();
+        Scanner scanner = new Scanner(System.in);
     	
     	Livro livro1 = new Livro("100", "Engenharia de Software", "Addison Wesley", 6, 2000, "Ian Sommervile");
         Livro livro2 = new Livro("101", "UML – Guia do Usuário", "Campus", 7, 2000, "Grady Booch", "James Rumbaugh", "Ivar Jacobson");
@@ -70,9 +72,19 @@ public class Console {
     	Usuario usuario2 = new AlunoPos("456", "Luiz Fernando Rodrigues");
     	Usuario usuario3 = new AlunoGraduacao("100", "Carlos Lucena");
     	
-    	//falta: adcionar instancias na fachada;
-    	//exibir testes;
-    	
-    	
+    	console.inicializar();
+        System.out.print("Digite o comando: ");
+        String comando = scanner.nextLine();
+        console.executarComando(comando);
+        String[] partes = quebrarString(comando);
+        System.out.println(Arrays.toString(partes));
+        System.out.println("O comando digitado contem " + partes.length + " parte(s)");
     }
+    
+    public static String[] quebrarString(String texto) {
+        String[] partes = texto.split("\\s");
+        return partes;  	
+    }
+	//Comando cmd = console.inserirComando(comando, usuario1, livro1);
+
 }
