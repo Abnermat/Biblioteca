@@ -1,8 +1,6 @@
 package trabalhoEngenharia;
 
 import java.util.*;
-import trabalhoEngenharia.command.*;
-
 import trabalhoEngenharia.Usuarios.Usuario;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
 
@@ -32,24 +30,53 @@ public class BibliotecaFachada {
 		this.listaDeUsuarios.add(usuario);
 	}
 	
-	public void solicitarService(Comando c) {
-		c.executar(null);
+	public boolean constamNaLista (Object...args) {
+		if((this.pesquisarUsuario((String) args[1]))!= null && (this.pesquisarLivro((String) args[2]))!= null) {
+			return true;
+		}
+		return false;
+	}
+	//**********************************
+	private Usuario pesquisarUsuario(String id) {
+		for(Usuario u: this.listaDeUsuarios) {
+			if(u.getId().equals(id)) {
+				return u;
+			}
+		}
+		System.out.println("Usuario nao encontrado!");
+		return null;
 	}
 	
-	
-	public void realizarEmprestimo(Usuario usuario, Livro livro) {
-		RealizarEmprestimoCmd emprestimo = new RealizarEmprestimoCmd();
-		//emprestimo.executar(codigo, usuario.getId(), livro.getId());
+	private Livro pesquisarLivro(String id) {
+		for(Livro l: this.listaDeLivros) {
+			if(l.getId().equals(id)) {;
+				return l;
+			}
+		}
+		System.out.println("Livro nao encontrado!");
+		return null;
+	}
+	//************************************************
+	public void realizarEmprestimo(String idUsuario, String idLivro) {
+
 	}
 	
-	public void realizarDevolucao(Usuario usuario, Livro livro) {
-		RealizarDevolucaoCmd devolucao = new RealizarDevolucaoCmd();
-		//devolucao.executar(codigo, usuario.getId(), livro.getId());
+	public void realizarDevolucao(String idUsuario, String idLivro) {
+		
+		Usuario u = this.pesquisarUsuario(idLivro);
+		Livro   l = this.pesquisarLivro(idLivro);
+		
+		if(u !=null && l != null)
+			u.devolverExemplar(u.getId(), l.getId());
 	}
 	
-	public void realizarReserva(Usuario usuario, Livro livro) {
-		RealizarReservaCmd reserva = new RealizarReservaCmd();
-		//reserva.executar(codigo, usuario.getId(), livro.getId());
+	public void realizarReserva(String idUsuario, String idLivro) {
+		
+		Usuario u = this.pesquisarUsuario(idLivro);
+		Livro   l = this.pesquisarLivro(idLivro);
+		
+		if(u !=null && l != null)
+			u.solicitarReserva(u.getId(), l.getId());
 	}
 	
 	public void serObservador(Usuario usuario, Livro livro) {

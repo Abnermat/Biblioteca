@@ -1,18 +1,13 @@
 package trabalhoEngenharia.command;
 
-import trabalhoEngenharia.Itens_biblioteca.Livro;
-import trabalhoEngenharia.Usuarios.Usuario;
+import trabalhoEngenharia.BibliotecaFachada;
 
 public class RealizarEmprestimoCmd implements Comando { //classe que implementa o command
 	
 	@Override
-	public void executar(Object... args) {
+	public void executar(BibliotecaFachada fachada, Object... args) {
 		
-		Usuario usu = (Usuario)args[1];
-		Livro livro = (Livro)args[2];
-		
-		usu.solicitarEmprestimo(usu.getId(), livro.getId()); 
-		
+		fachada.realizarEmprestimo ((String) args[1], (String) args[2]); 	
 	}
 
 }
