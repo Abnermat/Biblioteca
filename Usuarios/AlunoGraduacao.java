@@ -1,44 +1,47 @@
 package trabalhoEngenharia.Usuarios;
 
+import trabalhoEngenharia.BibliotecaFachada;
+import trabalhoEngenharia.Itens_biblioteca.Livro;
+import trabalhoEngenharia.command.Comando;
+
 public class AlunoGraduacao implements Usuario {
 
 	private String id;
 	private String nome;
+	private BibliotecaFachada fachada;
 	
 	
-	public AlunoGraduacao(String id, String nome) {
+	public AlunoGraduacao(String id, String nome, BibliotecaFachada fachada) {
 		this.id = id;
 		this.nome = nome;
+		this.fachada = fachada;
 	}
 	
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
 		return id;
 	}
 
 	@Override
 	public String getNome() {
-		// TODO Auto-generated method stub
 		return nome;
 	}
 
 	@Override
-	public void solicitarEmprestimo(String codUsu, String codLivro) {
-		// TODO Auto-generated method stub
-		
+	public void solicitarEmprestimo(Comando comando, Usuario usuario, Livro livro) {
+		this.fachada.realizarEmprestimo(comando, this, livro);	
 	}
 
 	@Override
-	public void devolverExemplar(String codUsu, String codLivro) {
-		System.out.println("livro devolvido!!!");
-		
+	public void devolverExemplar(Comando comando, Usuario usuario, Livro livro) {
+		this.fachada.realizarDevolucao(comando, this, livro);	
 	}
 
 	@Override
-	public void solicitarReserva(String codUsu, String codLivro) {
-		// TODO Auto-generated method stub
-		
+	public void solicitarReserva(Comando comando, Usuario usuario, Livro livro) {
+		this.fachada.realizarReserva(comando, this, livro);	
 	}
+
+
 
 }

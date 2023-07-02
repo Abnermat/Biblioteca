@@ -77,15 +77,15 @@ public class Console {
         livro7.addExemplar(exemplar8);
         livro7.addExemplar(exemplar9);
     	
-    	Usuario usuario1 = new AlunoGraduacao("123", "João da Silva");
-    	Usuario usuario2 = new AlunoPos("456", "Luiz Fernando Rodrigues");
-    	Usuario usuario3 = new AlunoGraduacao("100", "Carlos Lucena");
+    	Usuario usuario1 = new AlunoGraduacao("123", "João da Silva", console.fachada);
+    	Usuario usuario2 = new AlunoPos("456", "Luiz Fernando Rodrigues",console.fachada);
+    	Usuario usuario3 = new AlunoGraduacao("100", "Carlos Lucena",console.fachada);
     	
     	console.fachada.addLivro(livro1); //add livros
     	console.fachada.addLivro(livro2);
     	console.fachada.addLivro(livro3);
     	
-    	console.fachada.addUsuario(usuario1);
+    	console.fachada.addUsuario(usuario1); //add usuarios
     	console.fachada.addUsuario(usuario2);
     	console.fachada.addUsuario(usuario3);
     	

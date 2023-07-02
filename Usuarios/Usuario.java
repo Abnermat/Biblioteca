@@ -1,9 +1,12 @@
 package trabalhoEngenharia.Usuarios;
 
+import trabalhoEngenharia.Itens_biblioteca.Livro;
+import trabalhoEngenharia.command.Comando;
+
 public interface Usuario {
 	public String getId();
 	public String getNome();
-	public void solicitarEmprestimo(String codUsu, String codLivro);
-	public void devolverExemplar(String codUsu, String codLivro);
-	public void solicitarReserva(String codUsu, String codLivro);
+	public void solicitarEmprestimo (Comando comando, Usuario usuario, Livro livro);
+	public void devolverExemplar(Comando comando, Usuario usuario, Livro livro);
+	public void solicitarReserva(Comando comando, Usuario usuario, Livro livro);
 }

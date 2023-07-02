@@ -2,6 +2,7 @@ package trabalhoEngenharia;
 
 import java.util.*;
 import trabalhoEngenharia.Usuarios.Usuario;
+import trabalhoEngenharia.command.Comando;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
 
 public class BibliotecaFachada {
@@ -57,26 +58,30 @@ public class BibliotecaFachada {
 		return null;
 	}
 	//************************************************
-	public void realizarEmprestimo(String idUsuario, String idLivro) {
-
-	}
-	
-	public void realizarDevolucao(String idUsuario, String idLivro) {
-		
-		Usuario u = this.pesquisarUsuario(idLivro);
-		Livro   l = this.pesquisarLivro(idLivro);
+	public void realizarEmprestimo(Comando comando, Usuario usuario, Livro livro) {
+		Usuario u = this.pesquisarUsuario(usuario.getId());
+		Livro   l = this.pesquisarLivro(livro.getId());
 		
 		if(u !=null && l != null)
-			u.devolverExemplar(u.getId(), l.getId());
+			comando.executar(this, usuario, livro);
 	}
 	
-	public void realizarReserva(String idUsuario, String idLivro) {
+	public void realizarDevolucao(Comando comando, Usuario usuario, Livro livro) {
 		
-		Usuario u = this.pesquisarUsuario(idLivro);
-		Livro   l = this.pesquisarLivro(idLivro);
+		Usuario u = this.pesquisarUsuario(usuario.getId());
+		Livro   l = this.pesquisarLivro(livro.getId());
 		
 		if(u !=null && l != null)
-			u.solicitarReserva(u.getId(), l.getId());
+			comando.executar(this, usuario, livro);
+	}
+	
+	public void realizarReserva(Comando comando, Usuario usuario, Livro livro) {
+		
+		Usuario u = this.pesquisarUsuario(usuario.getId());
+		Livro   l = this.pesquisarLivro(livro.getId());
+		
+		if(u !=null && l != null)
+			comando.executar(this, usuario, livro);
 	}
 	
 	public void serObservador(Usuario usuario, Livro livro) {
