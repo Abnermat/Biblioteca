@@ -35,7 +35,7 @@ public class Console {
         		return;
         	}
         	if(this.fachada.constamNaLista(args)) {
-        		comando.executar(fachada, args);
+        		comando.executar(fachada, args); // fachada deve ser chamada aqui
         		return;
         	}
         } 
@@ -56,7 +56,7 @@ public class Console {
         Livro livro7 = new Livro("400", "Design Patterns: Elements of Reusable Object-Oriented Software", "Addison Wesley Professional", 1, 1994,"Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides");
         Livro livro8 = new Livro("401", "UML Distilled: A Brief Guide to the Standard Object Modeling Language", "Addison Wesley Professional", 3, 2003, "Martin Fowler");
   	
-        Exemplar exemplar1 = new Exemplar();
+        /*Exemplar exemplar1 = new Exemplar();
         Exemplar exemplar2 = new Exemplar();
         Exemplar exemplar3 = new Exemplar();
         Exemplar exemplar4 = new Exemplar();
@@ -64,10 +64,10 @@ public class Console {
         Exemplar exemplar6 = new Exemplar();
         Exemplar exemplar7 = new Exemplar();
         Exemplar exemplar8 = new Exemplar();
-        Exemplar exemplar9 = new Exemplar();
+        Exemplar exemplar9 = new Exemplar();*/
         
     	        
-        livro1.addExemplar(exemplar1);
+        /*livro1.addExemplar(exemplar1);
         livro1.addExemplar(exemplar2);
         livro2.addExemplar(exemplar3);
         livro3.addExemplar(exemplar4);
@@ -75,7 +75,7 @@ public class Console {
         livro5.addExemplar(exemplar6);
         livro5.addExemplar(exemplar7);
         livro7.addExemplar(exemplar8);
-        livro7.addExemplar(exemplar9);
+        livro7.addExemplar(exemplar9);*/
     	
     	Usuario usuario1 = new AlunoGraduacao("123", "João da Silva", console.fachada);
     	Usuario usuario2 = new AlunoPos("456", "Luiz Fernando Rodrigues",console.fachada);
@@ -95,8 +95,6 @@ public class Console {
         Object[] partes = quebrarString(comando);
         
         console.validarComando(partes);
-        
-        System.out.println(Arrays.toString(partes));
    
     }
     

@@ -9,6 +9,7 @@ public class RealizarEmprestimoCmd implements Comando { //classe que implementa 
 	public void executar(BibliotecaFachada fachada, Object... args) {
 		
 		System.out.println("Emprestimo realizado!");	
+		((Usuario)args[1]).solicitarEmprestimo(null, null, null);
 	}
 
 }

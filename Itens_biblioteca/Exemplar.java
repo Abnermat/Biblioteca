@@ -1,5 +1,7 @@
 package trabalhoEngenharia.Itens_biblioteca;
 
+import java.util.Date;
+
 public class Exemplar {
 //**********************************************
 	private static int contador = 1;
@@ -8,9 +10,10 @@ public class Exemplar {
 	private boolean disponivel;
 	
 	
-	public Exemplar() {
+	public Exemplar(String idLivro) {
 		this.id = gerarId();
 		this.setDisponivel(true);
+		this.idLivro = idLivro;
 	}
 
     private String gerarId() {

@@ -9,25 +9,24 @@ public class Professor implements Usuario {
 	private String id;
 	private String nome;
 	private BibliotecaFachada fachada;
-	
+	private int limiteDiasEmprestimo;
 	
 	public Professor(String id, String nome, BibliotecaFachada fachada) {
 		this.id = id;
 		this.nome = nome;
 		this.fachada = fachada;
+		this.limiteDiasEmprestimo = 7;
 	}
 	
 	
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
-		return id;
+		return this.id;
 	}
 
 	@Override
 	public String getNome() {
-		// TODO Auto-generated method stub
-		return nome;
+		return this.nome;
 	}
 
 	@Override
@@ -46,6 +45,11 @@ public class Professor implements Usuario {
 	public void solicitarReserva(Comando comando, Usuario usuario, Livro livro) {
 		this.fachada.realizarReserva(comando, usuario, livro);
 		
+	}
+
+	@Override
+	public int getLimiteDiasEmprestimo() {
+		return this.limiteDiasEmprestimo;
 	}
 
 }

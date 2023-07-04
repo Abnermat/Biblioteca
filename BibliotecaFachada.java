@@ -3,6 +3,7 @@ package trabalhoEngenharia;
 import java.util.*;
 import trabalhoEngenharia.Usuarios.Usuario;
 import trabalhoEngenharia.command.Comando;
+import trabalhoEngenharia.Itens_biblioteca.Exemplar;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
 
 public class BibliotecaFachada {
@@ -25,10 +26,23 @@ public class BibliotecaFachada {
 	}
 	
 	public void addLivro(Livro livro) {
+		Livro l = this.pesquisarLivro(livro.getId());
+		if(l != null) {
+			System.out.println("O livro já consta no acervo, será adicionado outro exemplar!");
+			l.addExemplar(new Exemplar(livro.getId())); //caso um livro com mesmo id seja adicionado, adiciona como exemplar
+			return;
+		}
+		livro.addExemplar(new Exemplar(livro.getId()));
 		this.listaDeLivros.add(livro);
+		
 	}
 	public void addUsuario(Usuario usuario) {
-		this.listaDeUsuarios.add(usuario);
+		Usuario u = this.pesquisarUsuario(usuario.getId());
+		if(u == null) {
+			this.listaDeUsuarios.add(usuario);
+			return;
+		}
+		System.out.println("Id de usuario já cadastrado!");
 	}
 	
 	public boolean constamNaLista (Object...args) {
