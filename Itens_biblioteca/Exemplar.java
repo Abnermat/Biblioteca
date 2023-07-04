@@ -8,9 +8,11 @@ public class Exemplar {
 	private boolean disponivel;
 	
 	
-	public Exemplar(Livro livro) {
+	public Exemplar(String id,Livro livro) {
+    this.id = id;
 		this.setDisponivel(true);
 		this.livro = livro;
+		livro.addExemplar(this);
 	}
 
     private String gerarId() {
@@ -39,5 +41,6 @@ public class Exemplar {
 	public Livro getLivro() {
 		return livro;
 	}
+  
 		
 }
