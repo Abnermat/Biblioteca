@@ -52,3 +52,6 @@ public class Livro {
 	    	return this.exemplares;
 	    }
  }
+	    	return this.exemplares;
+	    }
+ }
