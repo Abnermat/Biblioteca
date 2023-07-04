@@ -48,4 +48,7 @@ public class Livro {
 	    public void addExemplar(Exemplar exemplar) {
 	        this.exemplares.add(exemplar);
 	    }
+	    public List<Exemplar> getExemplares(){
+	    	return this.exemplares;
+	    }
  }

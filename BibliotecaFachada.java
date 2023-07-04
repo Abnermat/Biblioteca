@@ -3,6 +3,8 @@ package trabalhoEngenharia;
 import java.util.*;
 import trabalhoEngenharia.Usuarios.Usuario;
 import trabalhoEngenharia.command.Comando;
+import trabalhoEngenharia.command.VisualizarHistoricoCmd;
+import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
 import trabalhoEngenharia.Itens_biblioteca.Exemplar;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
 
@@ -45,34 +47,34 @@ public class BibliotecaFachada {
 		System.out.println("Id de usuario já cadastrado!");
 	}
 	
-	public boolean constamNaLista (Object...args) {
-		if((this.pesquisarUsuario((String) args[1]))!= null && (this.pesquisarLivro((String) args[2]))!= null) {
-			return true;
-		}
-		return false;
-	}
 	//**********************************
-	private Usuario pesquisarUsuario(String id) {
+	public Usuario pesquisarUsuario(String id) {
 		for(Usuario u: this.listaDeUsuarios) {
 			if(u.getId().equals(id)) {
 				return u;
 			}
 		}
-		System.out.println("Usuario nao encontrado!");
 		return null;
 	}
 	
-	private Livro pesquisarLivro(String id) {
+	public Livro pesquisarLivro(String id) {
 		for(Livro l: this.listaDeLivros) {
 			if(l.getId().equals(id)) {;
 				return l;
 			}
 		}
-		System.out.println("Livro nao encontrado!");
 		return null;
 	}
 	//************************************************
-	public void realizarEmprestimo(Comando comando, Usuario usuario, Livro livro) {
+	//public List<Emprestimo> getEmprestimos() {
+	//	return emprestimos;
+	//}
+	
+	public void service(Comando comando, Object...args) {
+		comando.executar(fachada, args);
+	}
+	
+	/*public void realizarEmprestimo(Comando comando, Usuario usuario, Livro livro) {
 		Usuario u = this.pesquisarUsuario(usuario.getId());
 		Livro   l = this.pesquisarLivro(livro.getId());
 		
@@ -102,12 +104,17 @@ public class BibliotecaFachada {
 	}
 	public void obterInformacoesExemplar(Usuario usuario, Livro livro) {
 	}
-	public void meusEmprestimos(Usuario usuario, Livro livro) {
+	
+	public void visulizarHistorico(Comando comando, Object...args) {
+		Usuario u = this.pesquisarUsuario((String)args[1]);  //pesquisa usuario atraves do nome
+		
+		comando.executar(this, u);
+		
 	}
 	public void notifObservador(Usuario usuario, Livro livro) {
 	}
 	public void sairDoSistema(Usuario usuario, Livro livro) {
-	}
+	}*/
 	
 	
 	

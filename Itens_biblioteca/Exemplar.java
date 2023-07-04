@@ -1,7 +1,5 @@
 package trabalhoEngenharia.Itens_biblioteca;
 
-import java.util.Date;
-
 public class Exemplar {
 //**********************************************
 	private static int contador = 1;

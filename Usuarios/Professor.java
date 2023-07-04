@@ -1,8 +1,10 @@
 package trabalhoEngenharia.Usuarios;
 
 import trabalhoEngenharia.BibliotecaFachada;
+import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
 import trabalhoEngenharia.command.Comando;
+import java.util.*;
 
 public class Professor implements Usuario {
 
@@ -10,12 +12,14 @@ public class Professor implements Usuario {
 	private String nome;
 	private BibliotecaFachada fachada;
 	private int limiteDiasEmprestimo;
+	private List<Emprestimo> emprestimos;
 	
 	public Professor(String id, String nome, BibliotecaFachada fachada) {
 		this.id = id;
 		this.nome = nome;
 		this.fachada = fachada;
 		this.limiteDiasEmprestimo = 7;
+		this.emprestimos = new ArrayList<>();
 	}
 	
 	
@@ -29,7 +33,7 @@ public class Professor implements Usuario {
 		return this.nome;
 	}
 
-	@Override
+	/*@Override
 	public void solicitarEmprestimo(Comando comando, Usuario usuario, Livro livro) {
 		this.fachada.realizarEmprestimo(comando, usuario, livro);
 		
@@ -45,11 +49,17 @@ public class Professor implements Usuario {
 	public void solicitarReserva(Comando comando, Usuario usuario, Livro livro) {
 		this.fachada.realizarReserva(comando, usuario, livro);
 		
-	}
+	}*/
 
 	@Override
 	public int getLimiteDiasEmprestimo() {
 		return this.limiteDiasEmprestimo;
+	}
+
+
+	@Override
+	public List<Emprestimo> getEmprestimos() {
+		return this.emprestimos;
 	}
 
 }

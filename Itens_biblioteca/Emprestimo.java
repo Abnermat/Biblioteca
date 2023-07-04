@@ -9,34 +9,43 @@ public class Emprestimo {
 	private Usuario usuario;
 	private Exemplar exemplar;
 	private LocalDate dataEmprestimo, dataDevolucao;
+	private boolean emAndamento;
 	 
 	public Emprestimo(Usuario usuario, Exemplar exemplar) {
 		this.setUsuario(usuario);
 		this.setExemplar(exemplar);
+		this.setEmAndamento(true);
 	}
 
 	public Emprestimo getEmprestimo() {
-		if(this.calcularAtraso() > 0) {
+		if(this.emAtraso()) {
 			System.out.println("Usuario em atraso de devolução!");
 			return null;
 		}
-		this.dataEmprestimo = LocalDate.now();
+		this.setDataEmprestimo(LocalDate.now());
 		this.dataDevolucao = this.calcularDataDevolucao();
 		this.exemplar.setDisponivel(false);
+		this.emAndamento = true;
 		return this;
 	}
 	
 	public LocalDate calcularDataDevolucao() {
 		int limiteUsuario = this.usuario.getLimiteDiasEmprestimo();
-		
-		return LocalDate.now().plusDays(limiteUsuario);
+		return LocalDate.now().plusDays(limiteUsuario); //pega data atual e devolve uma data posterior
 	}
 	
-	public int calcularAtraso() {
+	public boolean emAtraso() {
+		
+		if(this.usuario.getEmprestimos().isEmpty())
+			return false;
+		
 		int diaAtual = LocalDate.now().getDayOfYear();
 		int diaDevolucao = this.dataDevolucao.getDayOfYear();
 		
-		return diaAtual - diaDevolucao;			
+		if ((diaAtual - diaDevolucao)>0){		
+			return true;
+		}
+		return false;
 	}
 	
 	public Usuario getUsuario() {
@@ -53,6 +62,26 @@ public class Emprestimo {
 
 	public void setExemplar(Exemplar exemplar) {
 		this.exemplar = exemplar;
+	}
+
+	public LocalDate getDataEmprestimo() {
+		return dataEmprestimo;
+	}
+
+	public void setDataEmprestimo(LocalDate dataEmprestimo) {
+		this.dataEmprestimo = dataEmprestimo;
+	}
+
+	public boolean isEmAndamento() {
+		return emAndamento;
+	}
+
+	public void setEmAndamento(boolean emAndamento) {
+		this.emAndamento = emAndamento;
+	}
+	
+	public void setDataDevolucao() {
+		this.dataDevolucao = LocalDate.now();
 	}
 	
 	
