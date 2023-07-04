@@ -4,14 +4,13 @@ public class Exemplar {
 //**********************************************
 	private static int contador = 1;
 	private String id;
-	private String idLivro;
+	private Livro livro;
 	private boolean disponivel;
 	
 	
-	public Exemplar(String idLivro) {
-		this.id = gerarId();
+	public Exemplar(Livro livro) {
 		this.setDisponivel(true);
-		this.idLivro = idLivro;
+		this.livro = livro;
 	}
 
     private String gerarId() {
@@ -37,8 +36,8 @@ public class Exemplar {
 		this.disponivel = disponivel;
 	}
 
-	public String getIdLivro() {
-		return idLivro;
+	public Livro getLivro() {
+		return livro;
 	}
 		
 }
