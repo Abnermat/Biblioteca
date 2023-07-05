@@ -31,10 +31,10 @@ public class BibliotecaFachada {
 		Livro l = this.pesquisarLivro(livro.getId());
 		if(l != null) {
 			System.out.println("O livro já consta no acervo, será adicionado outro exemplar!");
-			l.addExemplar(new Exemplar(livro.getId())); //caso um livro com mesmo id seja adicionado, adiciona como exemplar
+			l.addExemplar(new Exemplar(livro)); //caso um livro com mesmo id seja adicionado, adiciona como exemplar
 			return;
 		}
-		livro.addExemplar(new Exemplar(livro.getId()));
+		livro.addExemplar(new Exemplar(livro));
 		this.listaDeLivros.add(livro);
 		
 	}
@@ -65,56 +65,109 @@ public class BibliotecaFachada {
 		}
 		return null;
 	}
-	//************************************************
-	//public List<Emprestimo> getEmprestimos() {
-	//	return emprestimos;
-	//}
-	
-	public void service(Comando comando, Object...args) {
-		comando.executar(fachada, args);
-	}
-	
-	/*public void realizarEmprestimo(Comando comando, Usuario usuario, Livro livro) {
-		Usuario u = this.pesquisarUsuario(usuario.getId());
-		Livro   l = this.pesquisarLivro(livro.getId());
+//**************************************************************************************************	
+	public void realizarEmprestimo(String idUsuario, String idLivro) {
+		Usuario u = this.pesquisarUsuario(idUsuario);
+		Livro   l = this.pesquisarLivro(idLivro);
 		
-		if(u !=null && l != null)
-			comando.executar(this, usuario, livro);
-	}
-	
-	public void realizarDevolucao(Comando comando, Usuario usuario, Livro livro) {
+		if(l.getExemplares().isEmpty()) {
+			System.out.println("Livro ainda sem exemplares!");
+			return;
+		}
 		
-		Usuario u = this.pesquisarUsuario(usuario.getId());
-		Livro   l = this.pesquisarLivro(livro.getId());
-		
-		if(u !=null && l != null)
-			comando.executar(this, usuario, livro);
+		for(Exemplar e: l.getExemplares()) {
+			if(e.isDisponivel()) {
+				Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
+				if(emprestimo != null) {
+					
+					u.getEmprestimos().add(emprestimo);
+					System.out.println("Usuario: " + u.getNome());
+					System.out.println("Livro: " + l.getTitulo());
+					System.out.println("Emprestimo realizado!");
+					System.out.println("Devolução: " + emprestimo.calcularDataDevolucao());
+					return;
+				}
+				System.out.println("Usuario em débito!");
+				return;
+			}
+		}
+		System.out.println("Não há exemplares disponiveis!");
 	}
-	
+//***********************************************************************************************	
+	public void realizarDevolucao(String idUsuario, String idLivro) {
+		
+		Usuario u = this.pesquisarUsuario(idUsuario);
+		Livro   l = this.pesquisarLivro(idLivro);
+		
+		if(u !=null && l != null) {
+					for(Emprestimo emp: u.getEmprestimos()) {      //verifica se há debito
+						if(emp.getExemplar().getLivro().getId().equals(l.getId())) {
+							emp.setDataDevolucao();
+							emp.setEmAndamento(false);
+							emp.getExemplar().setDisponivel(true);
+							System.out.println("O livro " + l.getTitulo() + " foi devolvido com sucesso!");
+							return;
+						}
+					}	
+					System.out.println("Não houve emprestimo do livro: " + l.getTitulo() + "!");
+							
+		}
+		System.out.println("Usuario ou livro inexistente!");	
+			
+	}
+	//************************************************************************************************
 	public void realizarReserva(Comando comando, Usuario usuario, Livro livro) {
 		
 		Usuario u = this.pesquisarUsuario(usuario.getId());
 		Livro   l = this.pesquisarLivro(livro.getId());
-		
-		if(u !=null && l != null)
-			comando.executar(this, usuario, livro);
 	}
-	
+//*********************************************************************************************	
 	public void serObservador(Usuario usuario, Livro livro) {
 	}
+//**************************************************************************************
 	public void obterInformacoesExemplar(Usuario usuario, Livro livro) {
 	}
-	
+//**********************************************************************************************	
 	public void visulizarHistorico(Comando comando, Object...args) {
-		Usuario u = this.pesquisarUsuario((String)args[1]);  //pesquisa usuario atraves do nome
-		
-		comando.executar(this, u);
+		Usuario usuario = this.pesquisarUsuario((String)args[1]);
+		if(usuario!=null) {
+			System.out.println("Historico de emprestimos do usuario " + usuario.getNome() + ":");
+			if(usuario.getEmprestimos().isEmpty() == false) {
+				
+				for(Emprestimo emp: usuario.getEmprestimos()) {
+					if(emp.getUsuario().getId().equals(usuario.getId())) {
+						
+							System.out.println("------------------------------");
+							Livro l = fachada.pesquisarLivro(emp.getExemplar().getId());
+							System.out.println("Exemplar: " + l.getTitulo());
+							System.out.println("Emprestimo: " + emp.getDataEmprestimo());
+							System.out.println("Devolução: " + emp.calcularDataDevolucao());
+							
+							System.out.print("Status: ");
+							if(emp.isEmAndamento()&&emp.emAtraso()) {
+								System.out.println("Em andamento (atraso)");
+							}else if(emp.isEmAndamento()) {
+								System.out.println("Em andamento");
+							}else {
+								System.out.println("Finalizado");
+							}
+							System.out.println("------------------------------");				
+						
+					}
+				}
+				return;
+			}			
+			System.out.println("Usuario não tem emprestimos!");
+			return;
+		}
 		
 	}
 	public void notifObservador(Usuario usuario, Livro livro) {
 	}
-	public void sairDoSistema(Usuario usuario, Livro livro) {
-	}*/
+	public void sairDoSistema() {
+		System.out.println("programa encerrado!");
+		System.exit(0);
+	}
 	
 	
 	

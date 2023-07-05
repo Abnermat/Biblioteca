@@ -40,7 +40,7 @@ public class Emprestimo {
 			return false;
 		
 		int diaAtual = LocalDate.now().getDayOfYear();
-		int diaDevolucao = this.dataDevolucao.getDayOfYear();
+		int diaDevolucao = this.dataDevolucao.getDayOfYear(); /para novo emprestimo, esse this não existe
 		
 		if ((diaAtual - diaDevolucao)>0){		
 			return true;

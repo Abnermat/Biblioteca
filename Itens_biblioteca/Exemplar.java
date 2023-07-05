@@ -8,11 +8,10 @@ public class Exemplar {
 	private boolean disponivel;
 	
 	
-	public Exemplar(String id,Livro livro) {
-    this.id = id;
+	public Exemplar(Livro livro) {
+		this.id = gerarId();
 		this.setDisponivel(true);
 		this.livro = livro;
-		livro.addExemplar(this);
 	}
 
     private String gerarId() {
@@ -39,8 +38,7 @@ public class Exemplar {
 	}
 
 	public Livro getLivro() {
-		return livro;
+		return this.livro;
 	}
-  
 		
 }

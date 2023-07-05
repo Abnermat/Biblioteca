@@ -8,9 +8,11 @@ import trabalhoEngenharia.Usuarios.*;
 public class VisualizarHistoricoCmd implements Comando{
 
 	@Override
-	public void executar(BibliotecaFachada fachada, Object... args) {
+	public void executar(Object... args) {
+		BibliotecaFachada fachada = BibliotecaFachada.getInstance();
+		fachada.visulizarHistorico(null, args);
 		
-		Usuario usuario = fachada.pesquisarUsuario((String)args[1]);
+		/*Usuario usuario = fachada.pesquisarUsuario((String)args[1]);
 		if(usuario!=null) {
 			System.out.println("Historico de emprestimos do usuario " + usuario.getNome() + ":");
 			if(usuario.getEmprestimos().isEmpty() == false) {
@@ -42,7 +44,7 @@ public class VisualizarHistoricoCmd implements Comando{
 			return;
 		}
 
-		System.out.println("Usuario inexistente!");	
+		System.out.println("Usuario inexistente!");	*/
 		
 	}
 

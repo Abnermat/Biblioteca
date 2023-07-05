@@ -17,13 +17,12 @@ public class Console {
     }
 
     public void inicializar() { //adicionar comandos na inicialização
-        Factory fabrica = new Factory();
     	
-        comandos.put("emp", fabrica.getRealizarEmprestimoCmd()); //preencher map
-    	comandos.put("dev", fabrica.getRealizarDevolucaoCmd()); 
-    	comandos.put("res", fabrica.getReservaCmd()); 
-    	comandos.put("usu", fabrica.getVisualizarHistoricoCmd());
-    	comandos.put("sai", fabrica.getSairCmd());
+        comandos.put("emp", new RealizarEmprestimoCmd()); //preencher map
+    	comandos.put("dev", new RealizarDevolucaoCmd()); 
+    	comandos.put("res", new RealizarReservaCmd()); 
+    	comandos.put("usu", new VisualizarHistoricoCmd());
+    	comandos.put("sai", new SairSistemaCmd());
 		
         
     }
@@ -34,8 +33,7 @@ public class Console {
         Comando comando = comandos.get((String)args[0]); //tenta pegar na Map o comando solicitado
         
         if (comando != null) {
-        	
-        		fachada.service(comando, args);
+        		comando.executar(args);
         		return;
         } 
         System.out.println("Comando " + args[0] + " invalido!");
@@ -69,11 +67,14 @@ public class Console {
     	console.fachada.addUsuario(usuario3);
     	
     	console.inicializar();
-        System.out.print("Digite o comando: ");
-        String comando = scanner.nextLine();
-        Object[] partes = quebrarString(comando);
-        
-        console.validarComando(partes);
+    	while(true) {
+            System.out.print("Digite o comando: ");
+            String comando = scanner.nextLine();
+            Object[] partes = quebrarString(comando);
+            
+            console.validarComando(partes);    		
+    	}
+
    
     }
     
