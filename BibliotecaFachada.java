@@ -116,7 +116,7 @@ public class BibliotecaFachada {
 			
 	}
 	//************************************************************************************************
-	public void realizarReserva(Comando comando, Usuario usuario, Livro livro) {
+	public void realizarReserva(Usuario usuario, Livro livro) {
 		
 		Usuario u = this.pesquisarUsuario(usuario.getId());
 		Livro   l = this.pesquisarLivro(livro.getId());
@@ -144,7 +144,7 @@ public class BibliotecaFachada {
 							System.out.println("Devolução: " + emp.calcularDataDevolucao());
 							
 							System.out.print("Status: ");
-							if(emp.isEmAndamento()&&emp.emAtraso()) {
+							if(emp.isEmAndamento()&&emp.getUsuario().isDevedor()) {
 								System.out.println("Em andamento (atraso)");
 							}else if(emp.isEmAndamento()) {
 								System.out.println("Em andamento");

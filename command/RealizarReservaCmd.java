@@ -8,7 +8,7 @@ public class RealizarReservaCmd implements Comando{
 	public void executar(Object... args) {
 		
 		BibliotecaFachada fachada = BibliotecaFachada.getInstance();
-		fachada.realizarReserva(null, null, null);
+		fachada.realizarReserva(null, null);
 		
 	}
 

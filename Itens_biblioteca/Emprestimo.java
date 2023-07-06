@@ -17,8 +17,9 @@ public class Emprestimo {
 		this.setEmAndamento(true);
 	}
 
+
 	public Emprestimo getEmprestimo() {
-		if(this.emAtraso()) {
+		if(usuario.isDevedor()) {
 			System.out.println("Usuario em atraso de devolução!");
 			return null;
 		}
@@ -34,7 +35,7 @@ public class Emprestimo {
 		return LocalDate.now().plusDays(limiteUsuario); //pega data atual e devolve uma data posterior
 	}
 	
-	public boolean emAtraso() {
+	/*public boolean emAtraso() {
 		
 		if(this.usuario.getEmprestimos().isEmpty())
 			return false;
@@ -46,7 +47,7 @@ public class Emprestimo {
 			return true;
 		}
 		return false;
-	}
+	}*/
 	
 	public Usuario getUsuario() {
 		return usuario;
@@ -82,6 +83,10 @@ public class Emprestimo {
 	
 	public void setDataDevolucao() {
 		this.dataDevolucao = LocalDate.now();
+	}
+	
+	public LocalDate getDataDevolucao() {
+		return dataDevolucao;
 	}
 	
 	
