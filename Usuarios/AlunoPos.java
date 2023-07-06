@@ -20,6 +20,7 @@ public class AlunoPos implements Usuario {
 		this.nome = nome;
 		this.fachada = fachada;
 		this.limiteDiasEmprestimo = 4;
+		this.emprestimos = new ArrayList<>();
 	}
 	
 	
