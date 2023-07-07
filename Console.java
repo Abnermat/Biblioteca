@@ -8,9 +8,6 @@ import trabalhoEngenharia.Itens_biblioteca.*;
 public class Console {
 	
     private Map<String, Comando> comandos;
-    BibliotecaFachada fachada = BibliotecaFachada.getInstance();
-    
-    
     
     public Console() {
         comandos = new HashMap<>();
@@ -43,6 +40,7 @@ public class Console {
     	
     	Console console = new Console();
         Scanner scanner = new Scanner(System.in);
+        BibliotecaFachada fachada = BibliotecaFachada.getInstance();
     	
     	Livro livro1 = new Livro("100", "Engenharia de Software", "Addison Wesley", 6, 2000, "Ian Sommervile");
         Livro livro2 = new Livro("101", "UML – Guia do Usuário", "Campus", 7, 2000, "Grady Booch", "James Rumbaugh", "Ivar Jacobson");
@@ -54,17 +52,17 @@ public class Console {
         Livro livro8 = new Livro("401", "UML Distilled: A Brief Guide to the Standard Object Modeling Language", "Addison Wesley Professional", 3, 2003, "Martin Fowler");
   	
     	
-    	Usuario usuario1 = new AlunoGraduacao("123", "João da Silva", console.fachada);
-    	Usuario usuario2 = new AlunoPos("456", "Luiz Fernando Rodrigues",console.fachada);
-    	Usuario usuario3 = new AlunoGraduacao("100", "Carlos Lucena",console.fachada);
+    	Usuario usuario1 = new AlunoGraduacao("123", "João da Silva", fachada);
+    	Usuario usuario2 = new AlunoPos("456", "Luiz Fernando Rodrigues",fachada);
+    	Usuario usuario3 = new AlunoGraduacao("100", "Carlos Lucena",fachada);
     	
-    	console.fachada.addLivro(livro1); //add livros
-    	console.fachada.addLivro(livro2);
-    	console.fachada.addLivro(livro3);
+    	fachada.addLivro(livro1,2); //add livros
+    	fachada.addLivro(livro2,1);
+    	fachada.addLivro(livro3,0);
     	
-    	console.fachada.addUsuario(usuario1); //add usuarios
-    	console.fachada.addUsuario(usuario2);
-    	console.fachada.addUsuario(usuario3);
+    	fachada.addUsuario(usuario1); //add usuarios
+    	fachada.addUsuario(usuario2);
+    	fachada.addUsuario(usuario3);
     	
     	console.inicializar();
     	while(true) {

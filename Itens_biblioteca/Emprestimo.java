@@ -35,20 +35,6 @@ public class Emprestimo {
 		return LocalDate.now().plusDays(limiteUsuario); //pega data atual e devolve uma data posterior
 	}
 	
-	/*public boolean emAtraso() {
-		
-		if(this.usuario.getEmprestimos().isEmpty())
-			return false;
-		
-		int diaAtual = LocalDate.now().getDayOfYear();
-		int diaDevolucao = this.dataDevolucao.getDayOfYear(); /para novo emprestimo, esse this não existe
-		
-		if ((diaAtual - diaDevolucao)>0){		
-			return true;
-		}
-		return false;
-	}*/
-	
 	public Usuario getUsuario() {
 		return usuario;
 	}

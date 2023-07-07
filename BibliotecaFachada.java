@@ -27,14 +27,16 @@ public class BibliotecaFachada {
 		return fachada;
 	}
 	
-	public void addLivro(Livro livro) {
+	public void addLivro(Livro livro, int qtd) {
 		Livro l = this.pesquisarLivro(livro.getId());
 		if(l != null) {
 			System.out.println("O livro já consta no acervo, será adicionado outro exemplar!");
 			l.addExemplar(new Exemplar(livro)); //caso um livro com mesmo id seja adicionado, adiciona como exemplar
 			return;
 		}
-		livro.addExemplar(new Exemplar(livro));
+		for(int i=0; i<qtd; i++) {
+			livro.addExemplar(new Exemplar(livro));
+		}
 		this.listaDeLivros.add(livro);
 		
 	}
@@ -110,6 +112,7 @@ public class BibliotecaFachada {
 						}
 					}	
 					System.out.println("Não houve emprestimo do livro: " + l.getTitulo() + "!");
+					return;
 							
 		}
 		System.out.println("Usuario ou livro inexistente!");	
