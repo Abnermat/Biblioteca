@@ -1,5 +1,6 @@
 package trabalhoEngenharia.Usuarios;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import trabalhoEngenharia.BibliotecaFachada;
@@ -59,6 +60,21 @@ public class AlunoPos implements Usuario {
 	@Override
 	public List<Emprestimo> getEmprestimos() {
 		return this.emprestimos;
+	}
+
+
+	@Override
+	public boolean isDevedor() {
+		if (this.getEmprestimos().isEmpty())
+			return false;
+		int diaAtual = LocalDate.now().getDayOfYear();
+		for (Emprestimo emp: this.emprestimos) {
+			int diaDevolucao = emp.getDataDevolucao().getDayOfYear();
+			if (diaAtual>diaDevolucao) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

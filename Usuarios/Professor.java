@@ -4,6 +4,8 @@ import trabalhoEngenharia.BibliotecaFachada;
 import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
 import trabalhoEngenharia.command.Comando;
+
+import java.time.LocalDate;
 import java.util.*;
 
 public class Professor implements Usuario {
@@ -60,6 +62,21 @@ public class Professor implements Usuario {
 	@Override
 	public List<Emprestimo> getEmprestimos() {
 		return this.emprestimos;
+	}
+
+
+	@Override
+	public boolean isDevedor() {
+		if (this.getEmprestimos().isEmpty())
+			return false;
+		int diaAtual = LocalDate.now().getDayOfYear();
+		for (Emprestimo emp: this.emprestimos) {
+			int diaDevolucao = emp.getDataDevolucao().getDayOfYear();
+			if (diaAtual>diaDevolucao) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
