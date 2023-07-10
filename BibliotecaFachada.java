@@ -83,21 +83,21 @@ public class BibliotecaFachada {
 			return;
 		}
 		
-       for(Exemplar e: l.getExemplares()) {
-    	   if(e.isEmprestado() == false && e.isReservado() == false) {
-    		   Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
-    		   u.getEmprestimos().add(emprestimo);
+       		for(Exemplar e: l.getExemplares()) {
+    	   		if(e.isEmprestado() == false && e.isReservado() == false) {
+    		   		Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
+    		   		u.getEmprestimos().add(emprestimo);
     	   
-    	   }else if(e.isReservado()) {
-    		   for(Reserva r: u.getReservas()) {
-    			   if(r.getLivro().getId().equals(l.getId())) {
-    				   Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
-    				   u.getEmprestimos().add(emprestimo);
-    				   u.getReservas().remove(r);
-    			   }
-    		   }
-    	   }
-       }
+    	   		}else if(e.isReservado()) {
+    		   		for(Reserva r: u.getReservas()) {
+    			   		if(r.getLivro().getId().equals(l.getId())) {
+    				   		Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
+    				   		u.getEmprestimos().add(emprestimo);
+    				   		u.getReservas().remove(r);
+    			   		}
+    		   		}
+    	   		}
+       		}
 		
 
 		return;
