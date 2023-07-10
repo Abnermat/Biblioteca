@@ -2,19 +2,22 @@ package trabalhoEngenharia.Usuarios;
 
 import trabalhoEngenharia.BibliotecaFachada;
 import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
+import trabalhoEngenharia.Itens_biblioteca.Exemplar;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
+import trabalhoEngenharia.Itens_biblioteca.Reserva;
 import trabalhoEngenharia.command.Comando;
 
 import java.time.LocalDate;
 import java.util.*;
 
-public class Professor implements Usuario {
+public class Professor implements Usuario, Observer {
 
 	private String id;
 	private String nome;
 	private BibliotecaFachada fachada;
 	private int limiteDiasEmprestimo;
 	private List<Emprestimo> emprestimos;
+	public List<Reserva> reservas;
 	
 	public Professor(String id, String nome, BibliotecaFachada fachada) {
 		this.id = id;
@@ -78,5 +81,22 @@ public class Professor implements Usuario {
 		}
 		return false;
 	}
+
+
+	@Override
+	public void notificarReservas(Exemplar exemplar) {
+		
+		
+	}
+
+	@Override
+	public List<Reserva> getReservas() {
+		return this.reservas;
+	}
+	@Override
+	public void addReserva(Reserva reserva) {
+		this.reservas.add(reserva);
+		
+	}	
 
 }

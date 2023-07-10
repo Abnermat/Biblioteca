@@ -6,6 +6,7 @@ import java.util.*;
 import trabalhoEngenharia.BibliotecaFachada;
 import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
+import trabalhoEngenharia.Itens_biblioteca.Reserva;
 import trabalhoEngenharia.command.Comando;
 
 public class AlunoPos implements Usuario {
@@ -15,6 +16,7 @@ public class AlunoPos implements Usuario {
 	private BibliotecaFachada fachada;
 	private int limiteDiasEmprestimo;
 	private List<Emprestimo> emprestimos;
+	public List<Reserva> reservas;
 	
 	public AlunoPos(String id, String nome, BibliotecaFachada fachada) {
 		this.id = id;
@@ -75,6 +77,19 @@ public class AlunoPos implements Usuario {
 			}
 		}
 		return false;
+	}
+
+
+	@Override
+	public List<Reserva> getReservas() {
+		return this.reservas;
+	}
+
+
+	@Override
+	public void addReserva(Reserva reserva) {
+		this.reservas.add(reserva);
+		
 	}
 
 }

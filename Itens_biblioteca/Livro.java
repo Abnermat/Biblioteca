@@ -1,6 +1,8 @@
 package trabalhoEngenharia.Itens_biblioteca;
 
 import java.util.*;
+import trabalhoEngenharia.Usuarios.*;
+import trabalhoEngenharia.Usuarios.Observer;
 
 public class Livro {
 	    private String id;
@@ -10,6 +12,8 @@ public class Livro {
 	    private int edicao;
 	    private int dataDePublicacao;
 	    private List<Exemplar> exemplares;
+		private List<Reserva> reservas;
+		private List<Observer> observadores;
 	
 	    public Livro(String id, String titulo, String editora, int edicao, int dataDePublicacao, String...autores) {
 	        this.id = id;
@@ -19,6 +23,8 @@ public class Livro {
 	        this.edicao = edicao;
 	        this.dataDePublicacao = dataDePublicacao;
 	        this.exemplares = new ArrayList<Exemplar>();
+	        this.reservas = new ArrayList<>();
+	        this.observadores = new ArrayList<>();
 	    }
 	
 	    public String getId() {
@@ -51,4 +57,17 @@ public class Livro {
 	    public List<Exemplar> getExemplares(){
 	    	return this.exemplares;
 	    }
+	    
+    
+	    public void addObservador(Observer observador) {
+	    	this.observadores.add(observador);
+	    }	   
+	    public void addReserva(Reserva reserva) {
+	    	this.reservas.add(reserva);
+	    }
+		public List<Reserva> getReservas(){
+			return this.reservas;
+		}
+
+	    
  }

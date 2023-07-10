@@ -19,20 +19,27 @@ public class Emprestimo {
 
 
 	public Emprestimo getEmprestimo() {
-		if(usuario.isDevedor()) {
-			System.out.println("Usuario em atraso de devolução!");
-			return null;
-		}
+
 		this.setDataEmprestimo(LocalDate.now());
 		this.dataDevolucao = this.calcularDataDevolucao();
-		this.exemplar.setDisponivel(false);
+		this.exemplar.setEmprestado(true);
 		this.emAndamento = true;
+		this.msgEmprestimo();
 		return this;
 	}
 	
 	public LocalDate calcularDataDevolucao() {
 		int limiteUsuario = this.usuario.getLimiteDiasEmprestimo();
 		return LocalDate.now().plusDays(limiteUsuario); //pega data atual e devolve uma data posterior
+	}
+	
+	
+	private void msgEmprestimo() {
+		System.out.println("Emprestimo realizado!");
+		System.out.println("Usuario: " + this.usuario);
+		System.out.println("Livro: " + this.exemplar.getLivro().getTitulo());
+		System.out.println("Devolução: " + this.getDataDevolucao());
+		
 	}
 	
 	public Usuario getUsuario() {

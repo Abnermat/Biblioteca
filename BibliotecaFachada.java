@@ -2,11 +2,13 @@ package trabalhoEngenharia;
 
 import java.util.*;
 import trabalhoEngenharia.Usuarios.Usuario;
+import trabalhoEngenharia.Usuarios.Observer;
 import trabalhoEngenharia.command.Comando;
 import trabalhoEngenharia.command.VisualizarHistoricoCmd;
 import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
 import trabalhoEngenharia.Itens_biblioteca.Exemplar;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
+import trabalhoEngenharia.Itens_biblioteca.Reserva;
 
 public class BibliotecaFachada {
 
@@ -76,24 +78,29 @@ public class BibliotecaFachada {
 			System.out.println("Livro ainda sem exemplares!");
 			return;
 		}
-		
-		for(Exemplar e: l.getExemplares()) {
-			if(e.isDisponivel()) {
-				Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
-				if(emprestimo != null) {
-					
-					u.getEmprestimos().add(emprestimo);
-					System.out.println("Usuario: " + u.getNome());
-					System.out.println("Livro: " + l.getTitulo());
-					System.out.println("Emprestimo realizado!");
-					System.out.println("Devolução: " + emprestimo.calcularDataDevolucao());
-					return;
-				}
-				System.out.println("Usuario em débito!");
-				return;
-			}
+		if(u.isDevedor()) {
+			System.out.println("Usuario em débito!");  
+			return;
 		}
-		System.out.println("Não há exemplares disponiveis!");
+		
+       for(Exemplar e: l.getExemplares()) {
+    	   if(e.isEmprestado() == false && e.isReservado() == false) {
+    		   Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
+    		   u.getEmprestimos().add(emprestimo);
+    	   
+    	   }else if(e.isReservado()) {
+    		   for(Reserva r: u.getReservas()) {
+    			   if(r.getLivro().getId().equals(l.getId())) {
+    				   Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
+    				   u.getEmprestimos().add(emprestimo);
+    				   u.getReservas().remove(r);
+    			   }
+    		   }
+    	   }
+       }
+		
+
+		return;
 	}
 //***********************************************************************************************	
 	public void realizarDevolucao(String idUsuario, String idLivro) {
@@ -106,7 +113,7 @@ public class BibliotecaFachada {
 						if(emp.getExemplar().getLivro().getId().equals(l.getId())) {
 							emp.setDataDevolucao();
 							emp.setEmAndamento(false);
-							emp.getExemplar().setDisponivel(true);
+							emp.getExemplar().setEmprestado(false);
 							System.out.println("O livro " + l.getTitulo() + " foi devolvido com sucesso!");
 							return;
 						}
@@ -119,13 +126,30 @@ public class BibliotecaFachada {
 			
 	}
 	//************************************************************************************************
-	public void realizarReserva(Usuario usuario, Livro livro) {
+	public void realizarReserva(String idUsuario, String idLivro) {
 		
-		Usuario u = this.pesquisarUsuario(usuario.getId());
-		Livro   l = this.pesquisarLivro(livro.getId());
+		Usuario u = this.pesquisarUsuario(idUsuario);
+		Livro   l = this.pesquisarLivro(idLivro);
+			
+		if(u.getReservas().size() == 3) {
+			System.out.println("Limite de reservas alcançado! (3 reservas em aberto)");
+			return;
+		}
+		Reserva NovaReserva = new Reserva(u, l);
+		
+		l.addReserva(NovaReserva);
+		u.addReserva(NovaReserva);  //registra nas duas classes
+		
 	}
 //*********************************************************************************************	
-	public void serObservador(Usuario usuario, Livro livro) {
+	public void serObservador(String idObservador, String idLivro) {
+		Usuario u = this.pesquisarUsuario(idObservador);
+		Livro   l = this.pesquisarLivro(idLivro);
+		
+		if(u != null && l != null) {
+			
+
+		}
 	}
 //**************************************************************************************
 	public void obterInformacoesExemplar(Usuario usuario, Livro livro) {
@@ -165,13 +189,11 @@ public class BibliotecaFachada {
 		}
 		
 	}
-	public void notifObservador(Usuario usuario, Livro livro) {
-	}
+
 	public void sairDoSistema() {
 		System.out.println("programa encerrado!");
 		System.exit(0);
 	}
-	
 	
 	
 }

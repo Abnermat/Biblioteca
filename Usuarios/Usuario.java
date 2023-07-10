@@ -4,6 +4,7 @@ import java.util.List;
 
 import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
+import trabalhoEngenharia.Itens_biblioteca.Reserva;
 import trabalhoEngenharia.command.Comando;
 
 public interface Usuario {
@@ -12,6 +13,8 @@ public interface Usuario {
 	public int getLimiteDiasEmprestimo();
 	public List<Emprestimo> getEmprestimos();
 	public boolean isDevedor();
+	public List<Reserva> getReservas();
+	public void addReserva(Reserva reserva);
 	
 	/*public void solicitarEmprestimo (Comando comando, Usuario usuario, Livro livro);
 	public void devolverExemplar(Comando comando, Usuario usuario, Livro livro);

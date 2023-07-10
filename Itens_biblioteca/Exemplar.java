@@ -1,16 +1,20 @@
 package trabalhoEngenharia.Itens_biblioteca;
 
+import java.util.*;
+
+import trabalhoEngenharia.Usuarios.Observer;
+
+
 public class Exemplar {
 //**********************************************
 	private static int contador = 1;
 	private String id;
 	private Livro livro;
-	private boolean disponivel;
-	
+	private boolean emprestado;
+	private boolean reservado;
 	
 	public Exemplar(Livro livro) {
 		this.id = gerarId();
-		this.setDisponivel(true);
 		this.livro = livro;
 	}
 
@@ -28,17 +32,46 @@ public class Exemplar {
 		return this.id;
 	}
 
-	public boolean isDisponivel() {
-		return disponivel;
+	public boolean isEmprestado() {
+		return this.emprestado; 
+	}
+	public boolean isReservado() {
+		return this.reservado; 
 	}
 
 
-	public void setDisponivel(boolean disponivel) {
-		this.disponivel = disponivel;
+	public void setEmprestado(boolean valor) {
+		this.emprestado = valor;
+	}
+	public void setReservado(boolean valor) {
+		this.reservado = valor;
 	}
 
 	public Livro getLivro() {
 		return this.livro;
+	} 
+	
+	/*public void verificarReservasObs() {
+		int qtdReservasAbertas = 0;
+		for(Reserva r: this.reservas) {
+			if(r.isAberta())
+				qtdReservasAbertas++;
+		}
+		if(qtdReservasAbertas > 2)
+			this.notificarObservadores();
 	}
+
+    private void notificarObservadores() {
+        for (Observer obsr : observadores) {
+            obsr.notificarReservas(this);
+        }
+    }
+    public void addObservador(Observer observador) {
+    	this.observadores.add(observador);
+    }*/
+    
+    //public List<Reserva> getReservas(){
+    	//return this.reservas;
+    //}
 		
 }
