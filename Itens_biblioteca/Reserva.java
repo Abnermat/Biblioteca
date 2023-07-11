@@ -1,14 +1,12 @@
 package trabalhoEngenharia.Itens_biblioteca;
-
 import java.time.LocalDate;
-
-import trabalhoEngenharia.Usuarios;
 
 public class Reserva {
 	
 	private Usuario usuario;
 	private Livro livro;
-	private LocalDate dataSolicitacao;
+	private LocalDate data;
+  
 	
 	public Reserva(Usuario usuario, Livro livro) {
 		this.usuario = usuario;
@@ -23,4 +21,7 @@ public class Reserva {
 	public Livro getLivro(){
 		return this.livro;
 	}	
+	public LocalDate getData(){
+    		return data;
+  	}
 }
