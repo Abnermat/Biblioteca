@@ -10,6 +10,7 @@ public class Livro {
 	    private int edicao;
 	    private int dataDePublicacao;
 	    private List<Exemplar> exemplares;
+	    private List<Reserva> reservas;
 	
 	    public Livro(String id, String titulo, String editora, int edicao, int dataDePublicacao, String...autores) {
 	        this.id = id;
@@ -19,6 +20,7 @@ public class Livro {
 	        this.edicao = edicao;
 	        this.dataDePublicacao = dataDePublicacao;
 	        this.exemplares = new ArrayList<Exemplar>();
+		this.reservas = new ArrayList<>();
 	    }
 	
 	    public String getId() {
@@ -51,7 +53,7 @@ public class Livro {
 	    public List<Exemplar> getExemplares(){
 	    	return this.exemplares;
 	    }
- }
-	    	return this.exemplares;
+	    public List<Reserva> getReservas(){
+	    	return this.reservas;
 	    }
  }
