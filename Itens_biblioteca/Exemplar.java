@@ -6,7 +6,6 @@ public class Exemplar {
 	private String id;
 	private Livro livro;
 	private boolean disponivel;
-  	private Emprestimo emprestimo;
 	
 	
 	public Exemplar(String id,Livro livro) {
@@ -37,11 +36,9 @@ public class Exemplar {
 	
 	public void disponibilizar() {
 		disponivel = true;
-		emprestimo = null;
 	}
 
-	public void emprestar(Emprestimo emprestimo){
-		this.emprestimo = emprestimo;
+	public void emprestar(){
 		disponivel = false;
 	}
 	
