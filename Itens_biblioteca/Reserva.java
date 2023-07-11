@@ -2,7 +2,7 @@ package trabalhoEngenharia.Itens_biblioteca;
 
 import java.time.LocalDate;
 
-import trabalhoEngenharia.Usuarios.Usuario;
+import trabalhoEngenharia.Usuarios;
 
 public class Reserva {
 	
