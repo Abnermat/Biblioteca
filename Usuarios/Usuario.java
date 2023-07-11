@@ -12,6 +12,7 @@ public interface Usuario {
 	public String getNome();
 	public int getLimiteDiasEmprestimo();
 	public List<Emprestimo> getEmprestimos();
+	public void addEmprestimo(Emprestimo emprestimo);
 	public boolean isDevedor();
 	public List<Reserva> getReservas();
 	public void addReserva(Reserva reserva);
