@@ -6,38 +6,44 @@ public class Exemplar {
 	private String id;
 	private Livro livro;
 	private boolean disponivel;
+  	private Emprestimo emprestimo;
 	
 	
 	public Exemplar(String id,Livro livro) {
-    this.id = id;
+    		this.id = id;
 		this.setDisponivel(true);
 		this.livro = livro;
 		livro.addExemplar(this);
 	}
 
-    private String gerarId() {
-        String id = String.format("%02d", contador);
-        contador++;
-        return id;
-    }
+	private String gerarId() {
+		String id = String.format("%02d", contador);
+		contador++;
+		return id;
+	}
 
-    public String getId() {
-        return id;
-    }
-
+	public String getId() {
+		return id;
+	}
+	
 	public String getIdExemplar() {
 		return this.id;
 	}
-
-	public boolean isDisponivel() {
+	
+	public boolean getDisponivel() {
 		return disponivel;
 	}
-
-
-	public void setDisponivel(boolean disponivel) {
-		this.disponivel = disponivel;
+	
+	
+	public void disponibilizar() {
+		disponivel = true;
 	}
 
+	public void emprestar(Emprestimo emprestimo){
+		this.emprestimo = emprestimo;
+		disponivel = false;
+	}
+	
 	public Livro getLivro() {
 		return livro;
 	}
