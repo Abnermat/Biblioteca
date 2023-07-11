@@ -37,6 +37,7 @@ public class Exemplar {
 	
 	public void disponibilizar() {
 		disponivel = true;
+		emprestimo = null;
 	}
 
 	public void emprestar(Emprestimo emprestimo){
