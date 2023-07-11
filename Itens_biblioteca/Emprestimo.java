@@ -15,6 +15,7 @@ public class Emprestimo {
 		this.setUsuario(usuario);
 		this.setExemplar(exemplar);
 		this.setEmAndamento(true);
+		exemplar.emprestar(this);
 	}
 
 	public Emprestimo getEmprestimo() {
