@@ -14,14 +14,15 @@ public class AlunoGraduacao implements Usuario {
 	private BibliotecaFachada fachada;
 	private int limiteDiasEmprestimo;
 	private List<Emprestimo> emprestimos;
-	
+	private List<Reserva> reservas;
 	
 	public AlunoGraduacao(String id, String nome, BibliotecaFachada fachada) {
 		this.id = id;
 		this.nome = nome;
 		this.fachada = fachada;
 		this.limiteDiasEmprestimo = 3;
-		emprestimos = new ArrayList<>();
+		this.emprestimos = new ArrayList<>();
+		this.reservas = new ArrayList<>();
 	}
 	
 	@Override
@@ -58,6 +59,12 @@ public class AlunoGraduacao implements Usuario {
 	public List<Emprestimo> getEmprestimos() {
 		
 		return this.emprestimos;
+	}
+
+	@Override
+	public List<Reserva> getReservas() {
+		
+		return this.reservas;
 	}
 
 
