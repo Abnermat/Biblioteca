@@ -71,14 +71,34 @@ public class BibliotecaFachada {
 	public void realizarEmprestimo(String idUsuario, String idLivro) {
 		Usuario u = this.pesquisarUsuario(idUsuario);
 		Livro   l = this.pesquisarLivro(idLivro);
+		t =0;
 		
 		if(l.getExemplares().isEmpty()) {
 			System.out.println("Livro ainda sem exemplares!");
 			return;
 		}
+		for(Exemplar e: l.getExemplares()){
+			if(e.getDisponivel()==true){
+				t=0;
+			}
+			t=1;
+		}
+		if(t==1)
 		if(u.isDevedor()) {
 			System.out.println("Usuario em débito!");  
 			return;
+		}
+		for (Reserva res: u.getReservas()){
+			if(res.getLivro().equals(l)){
+				for(Exemplar e: l.getExemplares()){
+					if(e.getDisponivel()==true){
+						Emprestimo emprestimo = new Emprestimo(u, e);
+		    				u.getEmprestimos().add(emprestimo);
+						return;
+					}
+				}
+				System.out.println
+			}
 		}
 		
        for(Exemplar e: l.getExemplares()) {
