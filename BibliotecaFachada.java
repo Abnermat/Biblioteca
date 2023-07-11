@@ -83,21 +83,25 @@ public class BibliotecaFachada {
 			return;
 		}
 		
-       		for(Exemplar e: l.getExemplares()) {
-    	   		if(e.isEmprestado() == false && e.isReservado() == false) {
-    		   		Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
-    		   		u.getEmprestimos().add(emprestimo);
+       for(Exemplar e: l.getExemplares()) {
     	   
-    	   		}else if(e.isReservado()) {
-    		   		for(Reserva r: u.getReservas()) {
-    			   		if(r.getLivro().getId().equals(l.getId())) {
-    				   		Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
-    				   		u.getEmprestimos().add(emprestimo);
-    				   		u.getReservas().remove(r);
-    			   		}
-    		   		}
-    	   		}
-       		}
+    	   if(e.isReservado()) {
+    		   for(Reserva r: u.getReservas()) {                       //a verificação na fila seria por aqui
+    			   if(r.getLivro().getId().equals(l.getId())) {
+    				   Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
+    				   u.getEmprestimos().add(emprestimo);
+    				   u.getReservas().remove(r);
+    				   return;
+    			   }
+    		   }
+    	   }
+    	   else if(e.isEmprestado() == false) {
+    		   Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
+    		   u.getEmprestimos().add(emprestimo);
+    		   return;
+    	   }  	   
+
+       }
 		
 
 		return;
@@ -155,7 +159,7 @@ public class BibliotecaFachada {
 	public void obterInformacoesExemplar(Usuario usuario, Livro livro) {
 	}
 //**********************************************************************************************	
-	public void visulizarHistorico(Comando comando, Object...args) {
+	public void visulizarHistorico(Object...args) {
 		Usuario usuario = this.pesquisarUsuario((String)args[1]);
 		if(usuario!=null) {
 			System.out.println("Historico de emprestimos do usuario " + usuario.getNome() + ":");
