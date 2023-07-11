@@ -13,17 +13,16 @@ public class AlunoPos implements Usuario {
 
 	private String id;
 	private String nome;
-	private BibliotecaFachada fachada;
 	private int limiteDiasEmprestimo;
 	private List<Emprestimo> emprestimos;
 	public List<Reserva> reservas;
 	
-	public AlunoPos(String id, String nome, BibliotecaFachada fachada) {
+	public AlunoPos(String id, String nome) {
 		this.id = id;
 		this.nome = nome;
-		this.fachada = fachada;
 		this.limiteDiasEmprestimo = 4;
 		this.emprestimos = new ArrayList<>();
+		this.reservas = new ArrayList<>();
 	}
 	
 	

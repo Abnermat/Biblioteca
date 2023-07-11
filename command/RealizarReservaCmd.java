@@ -8,7 +8,10 @@ public class RealizarReservaCmd implements Comando{
 	public void executar(Object... args) {
 		
 		BibliotecaFachada fachada = BibliotecaFachada.getInstance();
-		fachada.realizarReserva(null, null);
+		String idUsuario = (String)args[1];
+		String idLivro = (String)args[2];
+		
+		fachada.realizarReserva(idUsuario, idLivro);
 		
 	}
 

@@ -36,7 +36,7 @@ public class Emprestimo {
 	
 	private void msgEmprestimo() {
 		System.out.println("Emprestimo realizado!");
-		System.out.println("Usuario: " + this.usuario);
+		System.out.println("Usuario: " + this.usuario.getNome());
 		System.out.println("Livro: " + this.exemplar.getLivro().getTitulo());
 		System.out.println("Devolução: " + this.getDataDevolucao());
 		

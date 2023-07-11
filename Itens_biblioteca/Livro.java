@@ -57,13 +57,22 @@ public class Livro {
 	    public List<Exemplar> getExemplares(){
 	    	return this.exemplares;
 	    }
-	    
+	//*********************************************    
     
 	    public void addObservador(Observer observador) {
 	    	this.observadores.add(observador);
-	    }	   
+	    }	
+		private void notificarObs() {
+			for(Observer obs: this.observadores) {
+				obs.notificarSobreReservas(this);
+			}
+		}
+	//*********************************************	
 	    public void addReserva(Reserva reserva) {
 	    	this.reservas.add(reserva);
+	    	if(this.reservas.size() > 2)
+	    		this.notificarObs();
+	    	
 	    }
 		public List<Reserva> getReservas(){
 			return this.reservas;

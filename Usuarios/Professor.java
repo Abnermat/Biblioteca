@@ -14,17 +14,19 @@ public class Professor implements Usuario, Observer {
 
 	private String id;
 	private String nome;
-	private BibliotecaFachada fachada;
 	private int limiteDiasEmprestimo;
 	private List<Emprestimo> emprestimos;
-	public List<Reserva> reservas;
+	private List<Reserva> reservas;
+	private int qtdNotificacoes;
 	
-	public Professor(String id, String nome, BibliotecaFachada fachada) {
+	
+	public Professor(String id, String nome) {
 		this.id = id;
 		this.nome = nome;
-		this.fachada = fachada;
 		this.limiteDiasEmprestimo = 7;
 		this.emprestimos = new ArrayList<>();
+		this.reservas = new ArrayList<>();
+		this.setQtdNotifi(0);
 	}
 	
 	
@@ -37,24 +39,6 @@ public class Professor implements Usuario, Observer {
 	public String getNome() {
 		return this.nome;
 	}
-
-	/*@Override
-	public void solicitarEmprestimo(Comando comando, Usuario usuario, Livro livro) {
-		this.fachada.realizarEmprestimo(comando, usuario, livro);
-		
-	}
-
-	@Override
-	public void devolverExemplar(Comando comando, Usuario usuario, Livro livro) {
-		this.fachada.realizarDevolucao(comando, this, livro);
-		
-	}
-
-	@Override
-	public void solicitarReserva(Comando comando, Usuario usuario, Livro livro) {
-		this.fachada.realizarReserva(comando, usuario, livro);
-		
-	}*/
 
 	@Override
 	public int getLimiteDiasEmprestimo() {
@@ -82,13 +66,21 @@ public class Professor implements Usuario, Observer {
 		return false;
 	}
 
-
+//************************************************
 	@Override
-	public void notificarReservas(Exemplar exemplar) {
-		
+	public void notificarSobreReservas(Livro livro) {
+		System.out.println("O livro \"" + livro.getTitulo() + "\" tem mais de 2 reservas!" );
+		this.qtdNotificacoes++;
 		
 	}
+	public int getQtdNotifi() {
+		return qtdNotificacoes;
+	}
 
+	public void setQtdNotifi(int qtdNotificacoes) {
+		this.qtdNotificacoes = qtdNotificacoes;
+	}	
+//***********************************************
 	@Override
 	public List<Reserva> getReservas() {
 		return this.reservas;
@@ -97,6 +89,7 @@ public class Professor implements Usuario, Observer {
 	public void addReserva(Reserva reserva) {
 		this.reservas.add(reserva);
 		
-	}	
+	}
+
 
 }

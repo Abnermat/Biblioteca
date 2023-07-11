@@ -20,6 +20,8 @@ public class Console {
     	comandos.put("res", new RealizarReservaCmd()); 
     	comandos.put("usu", new VisualizarHistoricoCmd());
     	comandos.put("sai", new SairSistemaCmd());
+    	comandos.put("ntf", new VisualizarQtdNotif());
+    	comandos.put("obs", new SerObservador());
 		
         
     }
@@ -52,9 +54,11 @@ public class Console {
         Livro livro8 = new Livro("401", "UML Distilled: A Brief Guide to the Standard Object Modeling Language", "Addison Wesley Professional", 3, 2003, "Martin Fowler");
   	
     	
-    	Usuario usuario1 = new AlunoGraduacao("123", "João da Silva", fachada);
-    	Usuario usuario2 = new AlunoPos("456", "Luiz Fernando Rodrigues",fachada);
-    	Usuario usuario3 = new AlunoGraduacao("100", "Carlos Lucena",fachada);
+    	Usuario usuario1 = new AlunoGraduacao("123", "João da Silva");
+    	Usuario usuario2 = new AlunoPos("456", "Luiz Fernando Rodrigues");
+    	Usuario usuario3 = new AlunoGraduacao("789", "Pedro Paulo");
+    	Usuario usuario4 = new Professor("100", "Carlos Lucena");
+
     	
     	fachada.addLivro(livro1,2); //add livros
     	fachada.addLivro(livro2,1);
@@ -63,6 +67,7 @@ public class Console {
     	fachada.addUsuario(usuario1); //add usuarios
     	fachada.addUsuario(usuario2);
     	fachada.addUsuario(usuario3);
+    	fachada.addUsuario(usuario4);
     	
     	console.inicializar();
     	while(true) {

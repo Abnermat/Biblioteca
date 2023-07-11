@@ -1,7 +1,7 @@
 package trabalhoEngenharia.Usuarios;
 
-import trabalhoEngenharia.Itens_biblioteca.Exemplar;
+import trabalhoEngenharia.Itens_biblioteca.Livro;
 
 public interface Observer extends Usuario{
-	public void notificarReservas(Exemplar exemplar);
+	public void notificarSobreReservas(Livro livro);
 }

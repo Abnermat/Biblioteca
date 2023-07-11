@@ -3,8 +3,7 @@ package trabalhoEngenharia;
 import java.util.*;
 import trabalhoEngenharia.Usuarios.Usuario;
 import trabalhoEngenharia.Usuarios.Observer;
-import trabalhoEngenharia.command.Comando;
-import trabalhoEngenharia.command.VisualizarHistoricoCmd;
+import trabalhoEngenharia.Usuarios.Professor;
 import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
 import trabalhoEngenharia.Itens_biblioteca.Exemplar;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
@@ -32,8 +31,7 @@ public class BibliotecaFachada {
 	public void addLivro(Livro livro, int qtd) {
 		Livro l = this.pesquisarLivro(livro.getId());
 		if(l != null) {
-			System.out.println("O livro já consta no acervo, será adicionado outro exemplar!");
-			l.addExemplar(new Exemplar(livro)); //caso um livro com mesmo id seja adicionado, adiciona como exemplar
+			System.out.println("O livro já consta no acervo!");
 			return;
 		}
 		for(int i=0; i<qtd; i++) {
@@ -118,11 +116,11 @@ public class BibliotecaFachada {
 							emp.setDataDevolucao();
 							emp.setEmAndamento(false);
 							emp.getExemplar().setEmprestado(false);
-							System.out.println("O livro " + l.getTitulo() + " foi devolvido com sucesso!");
+							System.out.println("O livro \"" + l.getTitulo() + "\" foi devolvido com sucesso!");
 							return;
 						}
 					}	
-					System.out.println("Não houve emprestimo do livro: " + l.getTitulo() + "!");
+					System.out.println("Não houve emprestimo do livro: \"" + l.getTitulo() + "\"!");
 					return;
 							
 		}
@@ -143,24 +141,36 @@ public class BibliotecaFachada {
 		
 		l.addReserva(NovaReserva);
 		u.addReserva(NovaReserva);  //registra nas duas classes
+		System.out.println("O usuario " + u.getNome() + " reservou o livro \"" + l.getTitulo() + "\"");
 		
 	}
 //*********************************************************************************************	
 	public void serObservador(String idObservador, String idLivro) {
-		Usuario u = this.pesquisarUsuario(idObservador);
-		Livro   l = this.pesquisarLivro(idLivro);
 		
-		if(u != null && l != null) {
+		try {
 			
-
+			Observer u = (Professor) this.pesquisarUsuario(idObservador);
+			Livro   l = this.pesquisarLivro(idLivro);
+			
+			if(u != null && l != null) {
+				
+				l.addObservador(u);
+				System.out.println(u.getNome() + ", você agora é observador do livro: \"" + l.getTitulo() + "\"") ;
+				return;
+			}
+			
+		}catch(RuntimeException e) {
+			System.out.println("Comando restrito a professores!");
 		}
+
+		
 	}
 //**************************************************************************************
 	public void obterInformacoesExemplar(Usuario usuario, Livro livro) {
 	}
 //**********************************************************************************************	
-	public void visulizarHistorico(Object...args) {
-		Usuario usuario = this.pesquisarUsuario((String)args[1]);
+	public void visulizarHistorico(String idUsuario) {
+		Usuario usuario = this.pesquisarUsuario(idUsuario);
 		if(usuario!=null) {
 			System.out.println("Historico de emprestimos do usuario " + usuario.getNome() + ":");
 			if(usuario.getEmprestimos().isEmpty() == false) {
@@ -169,8 +179,8 @@ public class BibliotecaFachada {
 					if(emp.getUsuario().getId().equals(usuario.getId())) {
 						
 							System.out.println("------------------------------");
-							Livro l = fachada.pesquisarLivro(emp.getExemplar().getId());
-							System.out.println("Exemplar: " + l.getTitulo());
+							Livro l = fachada.pesquisarLivro(emp.getExemplar().getLivro().getId());
+							System.out.println("Livro: " + l.getTitulo());
 							System.out.println("Emprestimo: " + emp.getDataEmprestimo());
 							System.out.println("Devolução: " + emp.calcularDataDevolucao());
 							
@@ -193,11 +203,28 @@ public class BibliotecaFachada {
 		}
 		
 	}
-
+//*************************************
 	public void sairDoSistema() {
 		System.out.println("programa encerrado!");
 		System.exit(0);
 	}
-	
+//***************************************
+	public void visualizarQtdNtf(String idObservador) {
+		try {
+			
+			Usuario u = this.pesquisarUsuario(idObservador);
+			if(u==null) {
+				System.out.println("Usuario não encontrado!");
+				return;
+			}
+			Professor p = (Professor)u;
+			System.out.println(p.getNome() + ", você foi notificado " + p.getQtdNotifi() + " vez(es)!") ;
+			
+		}catch(RuntimeException e){
+			System.out.println("Comando não disponível para alunos!");
+		}
+
+		
+	}
 	
 }
