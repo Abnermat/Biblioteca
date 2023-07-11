@@ -36,22 +36,6 @@ public class AlunoPos implements Usuario {
 		return this.nome;
 	}
 
-	/*@Override
-	public void solicitarEmprestimo(Comando comando, Usuario usuario, Livro livro) {
-		this.fachada.realizarEmprestimo(comando, usuario, livro);
-		
-	}
-
-	@Override
-	public void devolverExemplar(Comando comando, Usuario usuario, Livro livro) {
-		this.fachada.realizarDevolucao(comando, this, livro);
-	}
-
-	@Override
-	public void solicitarReserva(Comando comando, Usuario usuario, Livro livro) {
-		this.fachada.realizarReserva(comando, usuario, livro);
-	}*/
-
 	@Override
 	public int getLimiteDiasEmprestimo() {
 		return this.limiteDiasEmprestimo;
@@ -61,6 +45,10 @@ public class AlunoPos implements Usuario {
 	@Override
 	public List<Emprestimo> getEmprestimos() {
 		return this.emprestimos;
+	}
+	@Override
+	public void addEmprestimo(Emprestimo emprestimo){
+		emprestimos.add(emprestimo);
 	}
 
 
