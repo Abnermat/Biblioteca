@@ -11,6 +11,7 @@ public interface Usuario {
 	public String getNome();
 	public int getLimiteDiasEmprestimo();
 	public List<Emprestimo> getEmprestimos();
+	public List<Reserva> getReservar();
 	/*public void solicitarEmprestimo (Comando comando, Usuario usuario, Livro livro);
 	public void devolverExemplar(Comando comando, Usuario usuario, Livro livro);
 	public void solicitarReserva(Comando comando, Usuario usuario, Livro livro);*/
