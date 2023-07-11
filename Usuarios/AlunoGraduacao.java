@@ -46,6 +46,10 @@ public class AlunoGraduacao implements Usuario {
 		
 		return this.emprestimos;
 	}
+	@Override
+	public void addEmprestimo(Emprestimo emprestimo){
+		emprestimos.add(emprestimo);
+	}
 
 	@Override
 	public boolean isDevedor() {
