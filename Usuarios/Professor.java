@@ -51,6 +51,11 @@ public class Professor implements Usuario, Observer {
 		return this.emprestimos;
 	}
 
+	@Override
+	public void addEmprestimo(Emprestimo emprestimo){
+		emprestimos.add(emprestimo);
+	}
+
 
 	@Override
 	public boolean isDevedor() {
