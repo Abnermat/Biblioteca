@@ -84,7 +84,7 @@ public class BibliotecaFachada {
 				if(e != null) {
 					Emprestimo emp = new Emprestimo(u,e);
 					u.addEmprestimo(emp);
-					this.emprestimos.add(null);
+					this.emprestimos.add(emp);
 					l.removerPrimeiroFilaReservas();
 					return;
 				}else {
@@ -96,7 +96,9 @@ public class BibliotecaFachada {
 		}else {
 			Exemplar e = l.exemplarDisponivel();
 			if(e != null) {
-				u.addEmprestimo(new Emprestimo(u,e));
+				Emprestimo emp = new Emprestimo(u,e);
+				u.addEmprestimo(emp);
+				this.emprestimos.add(emp);
 				return;
 			}else {
 				System.out.println("Não há exemplares disponiveis");
@@ -174,13 +176,27 @@ public class BibliotecaFachada {
 	public void obterInformacoesLivro(String idLivro) {
 		Livro livro = this.pesquisarLivro(idLivro);
 		
-		
 		if(livro != null) {
 			System.out.println("Livro: " + livro.getTitulo());
 			System.out.println("Quantidade de reservas: " + livro.getQtdReservasTotal());
-			livro.exibirNomesUsuariosReserva(); 
+			if(livro.getReservas().isEmpty() != false) {
+				for(Reserva r: livro.getReservas()) {
+					System.out.println("  -" + r.getUsuario().getNome());
+				}
+			}
 			System.out.println("Exemplares: ");
-			livro.exibirStatusExemplares(this);
+			if(livro.getExemplares().isEmpty() != true) {
+				for(Exemplar e: livro.getExemplares()) {
+					System.out.println("  exemplar " + e.getId() + " (" + e.minhaDisponibilidade() + ")");
+					for(Emprestimo emp: this.emprestimos) {
+						if(e.equals(emp.getExemplar())){
+							System.out.println("    Emprestado a: " + emp.getUsuario().getNome());
+							System.out.println("    Data do emprestimo: " + emp.getDataEmprestimo());
+							System.out.println("    Data de devolução: " + emp.getDataDevolucao());
+						}
+					}
+				}
+			}
 		}
 	}
 //**********************************************************************************************	
@@ -246,14 +262,14 @@ public class BibliotecaFachada {
 	}
 	public void exibirInformacoesEmprestimo(Exemplar exemplar) {
 		if(this.emprestimos.isEmpty() != false) {
-			for(Emprestimo emp: this.emprestimos) {
+			for(Emprestimo emp: this.getInstance().emprestimos) {
 				if(exemplar.equals(emp.getExemplar())){
 					System.out.println("Usuario: " + emp.getUsuario().getNome());
 					System.out.println("Emprestimo: " + emp.getDataEmprestimo());
 					System.out.println("Devolução: " + emp.getDataDevolucao());
 				}
 			}			
-		}else return;
+		}
 
 	}
 	

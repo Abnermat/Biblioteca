@@ -113,16 +113,16 @@ public class Livro {
 				}
 			}
 		}
-		public void exibirStatusExemplares(BibliotecaFachada b) {
-			if(this.exemplares.isEmpty() != false) {
-				for(Exemplar e: this.exemplares) {
-					System.out.println("Exemplar: " + e.getId());
+		public void exibirStatusExemplares() {
+			BibliotecaFachada b = BibliotecaFachada.getInstance(); 
+			if(this.exemplares.isEmpty() != true) {
+				for(Exemplar e: this.getExemplares()) {
+					System.out.println("  exemplar " + e.getId() + " (" + e.minhaDisponibilidade() + ")");
 					if(e.isDisponivel() == false) {
 						b.exibirInformacoesEmprestimo(e);
-						return;
 					}
 				}
-			}else if(this.exemplares.isEmpty() == true){
+			}else{
 				 System.out.println("Livro sem exemplares na Biblioteca!");	
 			}
 	

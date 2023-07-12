@@ -15,6 +15,7 @@ public class Exemplar {
 	public Exemplar(Livro livro) {
 		this.id = gerarId();
 		this.livro = livro;
+		this.disponibilizar();
 	}
 
     private String gerarId() {
