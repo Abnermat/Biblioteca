@@ -156,7 +156,7 @@ public class BibliotecaFachada {
 		
 		try {
 			
-			Observer u = (Professor) this.pesquisarUsuario(idObservador);
+			Observer u = this.pesquisarUsuario(idObservador);
 			Livro   l = this.pesquisarLivro(idLivro);
 			
 			if(u != null && l != null) {
