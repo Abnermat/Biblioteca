@@ -1,6 +1,8 @@
 package trabalhoEngenharia.Itens_biblioteca;
 
 import java.util.*;
+
+import trabalhoEngenharia.BibliotecaFachada;
 import trabalhoEngenharia.Usuarios.*;
 import trabalhoEngenharia.Usuarios.Observer;
 
@@ -77,6 +79,53 @@ public class Livro {
 		public List<Reserva> getReservas(){
 			return this.reservas;
 		}
-
+		public Usuario getPrimeiroFilaReservas() {
+			return this.reservas.get(0).getUsuario();
+		}
+		public void removerPrimeiroFilaReservas(){
+			this.reservas.remove(0);
+		}
+		public Exemplar exemplarDisponivel() {
+			for(Exemplar e: this.getExemplares()) {
+				if(e.isDisponivel()) {
+					return e;
+				}
+			}
+			return null;
+		}
+		public int qtdReservasUsuario(Usuario usu) {
+			int cont = 0;
+			for(Reserva r: this.reservas) {
+				if(r.getUsuario().equals(usu))
+					cont++;
+			}
+			return cont;
+		}
+		
+		public int getQtdReservasTotal() {
+			return this.reservas.size();
+		}
+		
+		public void exibirNomesUsuariosReserva() {
+			if(this.reservas.isEmpty() != false) {
+				for(Reserva r: this.reservas) {
+					System.out.println("  -" + r.getUsuario().getNome());
+				}
+			}
+		}
+		public void exibirStatusExemplares(BibliotecaFachada b) {
+			if(this.exemplares.isEmpty() != false) {
+				for(Exemplar e: this.exemplares) {
+					System.out.println("Exemplar: " + e.getId());
+					if(e.isDisponivel() == false) {
+						b.exibirInformacoesEmprestimo(e);
+						return;
+					}
+				}
+			}else if(this.exemplares.isEmpty() == true){
+				 System.out.println("Livro sem exemplares na Biblioteca!");	
+			}
+	
+		}
 	    
  }

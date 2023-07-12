@@ -1,5 +1,10 @@
 package trabalhoEngenharia.Itens_biblioteca;
 
+import java.util.*;
+
+import trabalhoEngenharia.Usuarios.Observer;
+
+
 public class Exemplar {
 //**********************************************
 	private static int contador = 1;
@@ -7,44 +12,44 @@ public class Exemplar {
 	private Livro livro;
 	private boolean disponivel;
 	
-	
-	public Exemplar(String id,Livro livro) {
-    		this.id = id;
-		this.setDisponivel(true);
+	public Exemplar(Livro livro) {
+		this.id = gerarId();
 		this.livro = livro;
-		livro.addExemplar(this);
 	}
 
-	private String gerarId() {
-		String id = String.format("%02d", contador);
-		contador++;
-		return id;
-	}
+    private String gerarId() {
+        String id = String.format("%02d", contador);
+        contador++;
+        return id;
+    }
 
-	public String getId() {
-		return id;
-	}
-	
+    public String getId() {
+        return id;
+    }
+
 	public String getIdExemplar() {
 		return this.id;
 	}
-	
-	public boolean getDisponivel() {
-		return disponivel;
-	}
-	
-	
-	public void disponibilizar() {
-		disponivel = true;
-	}
 
-	public void emprestar(){
-		disponivel = false;
+	public boolean isDisponivel() {
+		return this.disponivel; 
 	}
 	
 	public Livro getLivro() {
-		return livro;
+		return this.livro;
+	} 
+	public void disponibilizar() {
+		this.disponivel = true;
 	}
-  
+	public void indisponibilizar() {
+		this.disponivel = false;
+	}
+	public String minhaDisponibilidade() {
+		if(this.disponivel == true) {
+			return "disponivel";
+		}
+		return "indisponivel";
+		
+	}
 		
 }

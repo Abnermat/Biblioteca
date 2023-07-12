@@ -22,5 +22,10 @@ public class Reserva {
 	}
 	public Livro getLivro(){
 		return this.livro;
+	}
+
+
+	public LocalDate getDataSolicitacao() {
+		return dataSolicitacao;
 	}	
 }

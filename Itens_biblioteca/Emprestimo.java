@@ -15,17 +15,10 @@ public class Emprestimo {
 		this.setUsuario(usuario);
 		this.setExemplar(exemplar);
 		this.setEmAndamento(true);
-	}
-
-
-	public Emprestimo getEmprestimo() {
-
 		this.setDataEmprestimo(LocalDate.now());
 		this.dataDevolucao = this.calcularDataDevolucao();
-		this.exemplar.setEmprestado(true);
-		this.emAndamento = true;
+		this.exemplar.indisponibilizar();
 		this.msgEmprestimo();
-		return this;
 	}
 	
 	public LocalDate calcularDataDevolucao() {
@@ -37,7 +30,7 @@ public class Emprestimo {
 	private void msgEmprestimo() {
 		System.out.println("Emprestimo realizado!");
 		System.out.println("Usuario: " + this.usuario.getNome());
-		System.out.println("Livro: " + this.exemplar.getLivro().getTitulo());
+		System.out.println("Livro: \"" + this.exemplar.getLivro().getTitulo() + "\", exemplar: " + this.getExemplar().getId());
 		System.out.println("Devolução: " + this.getDataDevolucao());
 		
 	}

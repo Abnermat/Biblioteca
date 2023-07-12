@@ -46,10 +46,6 @@ public class AlunoGraduacao implements Usuario {
 		
 		return this.emprestimos;
 	}
-	@Override
-	public void addEmprestimo(Emprestimo emprestimo){
-		emprestimos.add(emprestimo);
-	}
 
 	@Override
 	public boolean isDevedor() {
@@ -73,6 +69,11 @@ public class AlunoGraduacao implements Usuario {
 	@Override
 	public void addReserva(Reserva reserva) {
 		this.reservas.add(reserva);
+		
+	}
+	@Override
+	public void addEmprestimo(Emprestimo emprestimo) {
+		this.emprestimos.add(emprestimo);
 		
 	}
 	

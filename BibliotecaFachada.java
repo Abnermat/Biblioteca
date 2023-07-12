@@ -15,10 +15,12 @@ public class BibliotecaFachada {
 	
 	private List<Usuario> listaDeUsuarios;
 	private List<Livro> listaDeLivros;
+	private List<Emprestimo> emprestimos;
 	
 	private BibliotecaFachada() {
-		listaDeUsuarios = new ArrayList<Usuario>();
-		listaDeLivros = new ArrayList<Livro>();
+		this.listaDeUsuarios = new ArrayList<Usuario>();
+		this.listaDeLivros = new ArrayList<Livro>();
+		this.emprestimos = new ArrayList<Emprestimo>();
 	}
 	
 	public static BibliotecaFachada getInstance() { //singleton
@@ -29,11 +31,6 @@ public class BibliotecaFachada {
 	}
 	
 	public void addLivro(Livro livro, int qtd) {
-		Livro l = this.pesquisarLivro(livro.getId());
-		if(l != null) {
-			System.out.println("O livro já consta no acervo!");
-			return;
-		}
 		for(int i=0; i<qtd; i++) {
 			livro.addExemplar(new Exemplar(livro));
 		}
@@ -71,58 +68,42 @@ public class BibliotecaFachada {
 	public void realizarEmprestimo(String idUsuario, String idLivro) {
 		Usuario u = this.pesquisarUsuario(idUsuario);
 		Livro   l = this.pesquisarLivro(idLivro);
-		t =0;
 		
 		if(l.getExemplares().isEmpty()) {
 			System.out.println("Livro ainda sem exemplares!");
 			return;
 		}
-		for(Exemplar e: l.getExemplares()){
-			if(e.getDisponivel()==true){
-				t=0;
-			}
-			t=1;
-		}
-		if(t==1)
 		if(u.isDevedor()) {
 			System.out.println("Usuario em débito!");  
 			return;
 		}
-		for (Reserva res: u.getReservas()){
-			if(res.getLivro().equals(l)){
-				for(Exemplar e: l.getExemplares()){
-					if(e.getDisponivel()==true){
-						Emprestimo emprestimo = new Emprestimo(u, e);
-		    				u.getEmprestimos().add(emprestimo);
-						return;
-					}
+		
+		if(l.getReservas().isEmpty() == false) {
+			if(l.getPrimeiroFilaReservas().equals(u)) {
+				Exemplar e = l.exemplarDisponivel();
+				if(e != null) {
+					Emprestimo emp = new Emprestimo(u,e);
+					u.addEmprestimo(emp);
+					this.emprestimos.add(null);
+					l.removerPrimeiroFilaReservas();
+					return;
+				}else {
+					System.out.println("Não há exemplares disponiveis no momento!");
+					return;
 				}
-				System.out.println
+				
+			}
+		}else {
+			Exemplar e = l.exemplarDisponivel();
+			if(e != null) {
+				u.addEmprestimo(new Emprestimo(u,e));
+				return;
+			}else {
+				System.out.println("Não há exemplares disponiveis");
 			}
 		}
 		
-       for(Exemplar e: l.getExemplares()) {
-    	   
-    	   if(e.isReservado()) {
-    		   for(Reserva r: u.getReservas()) {                       //a verificação na fila seria por aqui
-    			   if(r.getLivro().getId().equals(l.getId())) {
-    				   Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
-    				   u.getEmprestimos().add(emprestimo);
-    				   u.getReservas().remove(r);
-    				   return;
-    			   }
-    		   }
-    	   }
-    	   else if(e.isEmprestado() == false) {
-    		   Emprestimo emprestimo = new Emprestimo(u, e).getEmprestimo();
-    		   u.getEmprestimos().add(emprestimo);
-    		   return;
-    	   }  	   
 
-       }
-		
-
-		return;
 	}
 //***********************************************************************************************	
 	public void realizarDevolucao(String idUsuario, String idLivro) {
@@ -131,11 +112,11 @@ public class BibliotecaFachada {
 		Livro   l = this.pesquisarLivro(idLivro);
 		
 		if(u !=null && l != null) {
-					for(Emprestimo emp: u.getEmprestimos()) {      //verifica se há debito
+					for(Emprestimo emp: u.getEmprestimos()) {  
 						if(emp.getExemplar().getLivro().getId().equals(l.getId())) {
 							emp.setDataDevolucao();
 							emp.setEmAndamento(false);
-							emp.getExemplar().setEmprestado(false);
+							emp.getExemplar().disponibilizar();
 							System.out.println("O livro \"" + l.getTitulo() + "\" foi devolvido com sucesso!");
 							return;
 						}
@@ -153,14 +134,18 @@ public class BibliotecaFachada {
 		Usuario u = this.pesquisarUsuario(idUsuario);
 		Livro   l = this.pesquisarLivro(idLivro);
 			
-		if(u.getReservas().size() == 3) {
+		if(u == null || l == null) {
+			System.out.println("Usuario ou livro inexistente!");
+			return;
+		}
+		
+		if(l.qtdReservasUsuario(u) == 3) {
 			System.out.println("Limite de reservas alcançado! (3 reservas em aberto)");
 			return;
 		}
 		Reserva NovaReserva = new Reserva(u, l);
 		
 		l.addReserva(NovaReserva);
-		u.addReserva(NovaReserva);  //registra nas duas classes
 		System.out.println("O usuario " + u.getNome() + " reservou o livro \"" + l.getTitulo() + "\"");
 		
 	}
@@ -186,7 +171,17 @@ public class BibliotecaFachada {
 		
 	}
 //**************************************************************************************
-	public void obterInformacoesExemplar(Usuario usuario, Livro livro) {
+	public void obterInformacoesLivro(String idLivro) {
+		Livro livro = this.pesquisarLivro(idLivro);
+		
+		
+		if(livro != null) {
+			System.out.println("Livro: " + livro.getTitulo());
+			System.out.println("Quantidade de reservas: " + livro.getQtdReservasTotal());
+			livro.exibirNomesUsuariosReserva(); 
+			System.out.println("Exemplares: ");
+			livro.exibirStatusExemplares(this);
+		}
 	}
 //**********************************************************************************************	
 	public void visulizarHistorico(String idUsuario) {
@@ -245,6 +240,21 @@ public class BibliotecaFachada {
 		}
 
 		
+	}
+	public void registrarEmprestimo(Emprestimo emp) {
+		this.emprestimos.add(emp);
+	}
+	public void exibirInformacoesEmprestimo(Exemplar exemplar) {
+		if(this.emprestimos.isEmpty() != false) {
+			for(Emprestimo emp: this.emprestimos) {
+				if(exemplar.equals(emp.getExemplar())){
+					System.out.println("Usuario: " + emp.getUsuario().getNome());
+					System.out.println("Emprestimo: " + emp.getDataEmprestimo());
+					System.out.println("Devolução: " + emp.getDataDevolucao());
+				}
+			}			
+		}else return;
+
 	}
 	
 }

@@ -22,6 +22,7 @@ public class Console {
     	comandos.put("sai", new SairSistemaCmd());
     	comandos.put("ntf", new VisualizarQtdNotif());
     	comandos.put("obs", new SerObservador());
+    	comandos.put("liv", new VisualizarInformacoesLivro());
 		
         
     }
