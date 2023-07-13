@@ -83,8 +83,12 @@ public class BibliotecaFachada {
 				Exemplar e = l.exemplarDisponivel();
 				if(e != null) {
 					Emprestimo emp = new Emprestimo(u,e);
-					u.addEmprestimo(emp);
-					this.emprestimos.add(emp);
+					boolean sucesso = u.addEmprestimo(emp);
+					if(!sucesso) {
+						System.out.println("Limite de emprestimos alcançado!");
+						return;
+					}
+					this.registrarEmprestimo(emp);
 					l.removerPrimeiroFilaReservas();
 					return;
 				}else {
@@ -156,7 +160,7 @@ public class BibliotecaFachada {
 		
 		try {
 			
-			Observer u = this.pesquisarUsuario(idObservador);
+			Observer u = (Professor) this.pesquisarUsuario(idObservador);
 			Livro   l = this.pesquisarLivro(idLivro);
 			
 			if(u != null && l != null) {
@@ -262,7 +266,7 @@ public class BibliotecaFachada {
 	}
 	public void exibirInformacoesEmprestimo(Exemplar exemplar) {
 		if(this.emprestimos.isEmpty() != false) {
-			for(Emprestimo emp: this.getInstance().emprestimos) {
+			for(Emprestimo emp: this.emprestimos) {
 				if(exemplar.equals(emp.getExemplar())){
 					System.out.println("Usuario: " + emp.getUsuario().getNome());
 					System.out.println("Emprestimo: " + emp.getDataEmprestimo());

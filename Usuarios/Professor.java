@@ -1,12 +1,8 @@
 package trabalhoEngenharia.Usuarios;
 
-import trabalhoEngenharia.BibliotecaFachada;
 import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
-import trabalhoEngenharia.Itens_biblioteca.Exemplar;
 import trabalhoEngenharia.Itens_biblioteca.Livro;
 import trabalhoEngenharia.Itens_biblioteca.Reserva;
-import trabalhoEngenharia.command.Comando;
-
 import java.time.LocalDate;
 import java.util.*;
 
@@ -91,11 +87,10 @@ public class Professor implements Usuario, Observer {
 		
 	}
 
-
 	@Override
-	public void addEmprestimo(Emprestimo emprestimo) {
+	public boolean addEmprestimo(Emprestimo emprestimo) {
 		this.emprestimos.add(emprestimo);
-		
+		return true;
 	}
 
 

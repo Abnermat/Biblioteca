@@ -13,9 +13,9 @@ public class Console {
         comandos = new HashMap<>();
     }
 
-    public void inicializar() { //adicionar comandos na inicialização
+    public void inicializar() { 
     	
-        comandos.put("emp", new RealizarEmprestimoCmd()); //preencher map
+        comandos.put("emp", new RealizarEmprestimoCmd()); 
     	comandos.put("dev", new RealizarDevolucaoCmd()); 
     	comandos.put("res", new RealizarReservaCmd()); 
     	comandos.put("usu", new VisualizarHistoricoCmd());
@@ -27,10 +27,10 @@ public class Console {
         
     }
     
-   public void validarComando(Object... args) { //teoricamente args pode ser tratado como uma matriz
+   public void validarComando(Object... args) { 
 		
 	   
-        Comando comando = comandos.get((String)args[0]); //tenta pegar na Map o comando solicitado
+        Comando comando = comandos.get((String)args[0]); 
         
         if (comando != null) {
         		comando.executar(args);
@@ -61,11 +61,11 @@ public class Console {
     	Usuario usuario4 = new Professor("100", "Carlos Lucena");
 
     	
-    	fachada.addLivro(livro1,2); //add livros
+    	fachada.addLivro(livro1,2);
     	fachada.addLivro(livro2,1);
     	fachada.addLivro(livro3,0);
     	
-    	fachada.addUsuario(usuario1); //add usuarios
+    	fachada.addUsuario(usuario1);
     	fachada.addUsuario(usuario2);
     	fachada.addUsuario(usuario3);
     	fachada.addUsuario(usuario4);

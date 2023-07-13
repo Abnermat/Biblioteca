@@ -1,10 +1,6 @@
 package trabalhoEngenharia.command;
 
 import trabalhoEngenharia.BibliotecaFachada;
-import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
-import trabalhoEngenharia.Itens_biblioteca.Exemplar;
-import trabalhoEngenharia.Itens_biblioteca.Livro;
-import trabalhoEngenharia.Usuarios.*;
 
 
 public class RealizarDevolucaoCmd implements Comando{

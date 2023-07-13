@@ -3,11 +3,8 @@ package trabalhoEngenharia.Usuarios;
 import java.time.LocalDate;
 import java.util.*;
 
-import trabalhoEngenharia.BibliotecaFachada;
 import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
-import trabalhoEngenharia.Itens_biblioteca.Livro;
 import trabalhoEngenharia.Itens_biblioteca.Reserva;
-import trabalhoEngenharia.command.Comando;
 
 public class AlunoGraduacao implements Usuario {
 
@@ -72,8 +69,12 @@ public class AlunoGraduacao implements Usuario {
 		
 	}
 	@Override
-	public void addEmprestimo(Emprestimo emprestimo) {
+	public boolean addEmprestimo(Emprestimo emprestimo) {
+		if(this.emprestimos.size() == 3) {
+			return false;
+		}
 		this.emprestimos.add(emprestimo);
+		return true;
 		
 	}
 	

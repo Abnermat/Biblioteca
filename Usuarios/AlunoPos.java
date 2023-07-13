@@ -3,11 +3,8 @@ package trabalhoEngenharia.Usuarios;
 import java.time.LocalDate;
 import java.util.*;
 
-import trabalhoEngenharia.BibliotecaFachada;
 import trabalhoEngenharia.Itens_biblioteca.Emprestimo;
-import trabalhoEngenharia.Itens_biblioteca.Livro;
 import trabalhoEngenharia.Itens_biblioteca.Reserva;
-import trabalhoEngenharia.command.Comando;
 
 public class AlunoPos implements Usuario {
 
@@ -35,22 +32,6 @@ public class AlunoPos implements Usuario {
 	public String getNome() {
 		return this.nome;
 	}
-
-	/*@Override
-	public void solicitarEmprestimo(Comando comando, Usuario usuario, Livro livro) {
-		this.fachada.realizarEmprestimo(comando, usuario, livro);
-		
-	}
-
-	@Override
-	public void devolverExemplar(Comando comando, Usuario usuario, Livro livro) {
-		this.fachada.realizarDevolucao(comando, this, livro);
-	}
-
-	@Override
-	public void solicitarReserva(Comando comando, Usuario usuario, Livro livro) {
-		this.fachada.realizarReserva(comando, usuario, livro);
-	}*/
 
 	@Override
 	public int getLimiteDiasEmprestimo() {
@@ -91,8 +72,12 @@ public class AlunoPos implements Usuario {
 		
 	}
 	@Override
-	public void addEmprestimo(Emprestimo emprestimo) {
+	public boolean addEmprestimo(Emprestimo emprestimo) {
+		if(this.emprestimos.size() == 4) {
+			return false;
+		}
 		this.emprestimos.add(emprestimo);
+		return true;
 		
 	}
 

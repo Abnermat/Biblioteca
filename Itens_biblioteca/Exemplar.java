@@ -1,9 +1,5 @@
 package trabalhoEngenharia.Itens_biblioteca;
 
-import java.util.*;
-
-import trabalhoEngenharia.Usuarios.Observer;
-
 
 public class Exemplar {
 //**********************************************
